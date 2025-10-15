@@ -1,0 +1,69 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+//Use NavMesh for pathfinding
+//Enemies have 3 difficulties
+//State Machine for AI behaviour
+
+public class Enemy : MonoBehaviour
+{
+    enum AIState
+    {
+        Pathing,
+        Attacking,
+    }
+
+    [SerializeField] private Transform playerTransform;
+    private bool isActive = false; //If enemy can pathfind to player
+    private NavMeshAgent agent;
+    private AIState currentState = AIState.Pathing;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        if (agent != null && agent.isOnNavMesh && playerTransform != null) { isActive = true; } 
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(isActive)
+        {
+            if(currentState == AIState.Pathing)
+            {
+                EnemyPath();
+            }
+            else
+            {
+                Attack();
+            }
+        }
+    }
+
+    void EnemyPath()
+    {
+        if(Vector3.Distance(transform.position, playerTransform.position) > 2f)
+        {
+            agent.SetDestination(playerTransform.position);
+        }
+        else
+        {
+            currentState = AIState.Attacking;
+        }
+    }
+
+    void Attack()
+    {
+        if(Vector3.Distance(transform.position, playerTransform.position) > 2f)
+        {
+            currentState = AIState.Pathing;
+        }
+        else
+        {
+            //Attack logic here
+            Debug.Log("Attacking Player");
+        }
+    }
+}
