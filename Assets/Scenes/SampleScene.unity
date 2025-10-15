@@ -429,6 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PointOfInterestSpawner
   pointsOfInterestPrefabs:
   - {fileID: 7661564874736227630, guid: dfb81fab20e05f348990c09d8bc73607, type: 3}
+  - {fileID: 7661564874736227630, guid: 923e6ca30fcd40a48a9e85609858b64e, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
