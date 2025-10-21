@@ -771,6 +771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 3
+  invincibilityTime: 0.5
   OnDeath:
     m_PersistentCalls:
       m_Calls: []

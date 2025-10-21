@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,6 +8,8 @@ public class Health : MonoBehaviour
 {
 
     [SerializeField] private int maxHealth;
+    [SerializeField] private float invincibilityTime = 0.8f;
+    
 
     //UnityEvents so we can keep track of play data for DDA later on
     public UnityEvent OnDeath;
@@ -13,7 +17,8 @@ public class Health : MonoBehaviour
     public UnityEvent OnHeal;
 
     private int health;
-   
+    private bool isInvincible = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,13 +33,18 @@ public class Health : MonoBehaviour
     //Takes a uint for DMG amount to ensure we never get negative damage (healing)
     public void TakeDamage(uint dmgAmount)
     {
-        health -= (int)dmgAmount;
-        OnDamageTaken.Invoke();
-        if (health <= 0)
+        if(!isInvincible)
         {
-            OnDeath.Invoke();
+            health -= (int)dmgAmount;
+            OnDamageTaken.Invoke();
+            if (health <= 0)
+            {
+                OnDeath.Invoke();
+            }
+            Debug.Log(gameObject.name + " took " + dmgAmount + " damage. Current Health: " + health);
+            StartCoroutine(Invincibility());
         }
-        Debug.Log(gameObject.name + " took " + dmgAmount + " damage. Current Health: " + health);
+      
     }
 
     //Takes a uint for DMG amount to ensure we never get negative healing (damage)
@@ -46,5 +56,13 @@ public class Health : MonoBehaviour
             health = maxHealth;
         }
         OnHeal.Invoke();
+    }
+
+    //Wait IEnumerator for invincibility frames
+    private IEnumerator Invincibility()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(invincibilityTime);
+        isInvincible = false;
     }
 }
