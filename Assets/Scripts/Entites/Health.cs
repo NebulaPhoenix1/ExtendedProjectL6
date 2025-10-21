@@ -34,6 +34,7 @@ public class Health : MonoBehaviour
         {
             OnDeath.Invoke();
         }
+        Debug.Log(gameObject.name + " took " + dmgAmount + " damage. Current Health: " + health);
     }
 
     //Takes a uint for DMG amount to ensure we never get negative healing (damage)

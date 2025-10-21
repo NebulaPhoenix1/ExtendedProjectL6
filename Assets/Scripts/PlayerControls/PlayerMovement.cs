@@ -32,5 +32,14 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = moveAction.ReadValue<Vector2>(); //Get what the player is inputting
         rb.linearVelocity = new Vector3(moveInput.x * moveSpeed, rb.linearVelocity.y, moveInput.y * moveSpeed);
+        //Rotate the player to face mouse
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 100f))
+        {
+            Vector3 lookPoint = hitInfo.point;
+            lookPoint.y = transform.position.y; //Keep the y position the same to avoid tilting
+            transform.LookAt(lookPoint);
+        }
     }
 }

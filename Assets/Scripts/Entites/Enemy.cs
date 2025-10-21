@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
         else
         {
             //Attack logic here
-            Debug.Log("Attacking Player");
+            //Debug.Log("Attacking Player");
         }
     }
 }
