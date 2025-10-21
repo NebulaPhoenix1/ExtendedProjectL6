@@ -3,14 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //Player will move towards world space coordinates of the mouse (so player walks relative to mouse)
+    //Simple WASD Movement Script
     //Using Unity's new Input System
 
     private Rigidbody rb;
     private InputAction moveAction;
     private Vector2 moveInput;
-    private Vector2 mouseScreenPosition;
-    private Vector3 mouseWorldPosition;
     [SerializeField] float moveSpeed = 5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,15 +31,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         moveInput = moveAction.ReadValue<Vector2>(); //Get what the player is inputting
-        //Get Mouse Position
-        mouseScreenPosition = Mouse.current.position.ReadValue();
-        mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, Camera.main.transform.position.y - transform.position.y));
-        //When walking forward/backward, walk towards/away from mouse position
-        Vector3 directionToMouse = (mouseWorldPosition - transform.position).normalized;
-        Vector3 rightToMouse = Vector3.Cross(Vector3.up, directionToMouse);
-        Vector3 moveDir = (directionToMouse * moveInput.y + rightToMouse * moveInput.x).normalized;
-        rb.linearVelocity = new Vector3(moveDir.x * moveSpeed, rb.velocity.y, moveDir.z * moveSpeed);
-
-        
+        rb.linearVelocity = new Vector3(moveInput.x * moveSpeed, rb.linearVelocity.y, moveInput.y * moveSpeed);
     }
 }
