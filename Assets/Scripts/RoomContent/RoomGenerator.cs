@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomGenerator : MonoBehaviour
@@ -9,30 +10,49 @@ public class RoomGenerator : MonoBehaviour
        Then spawn, pick a direction to spawn the next, check if its valid and if so repeat
     */
 
-    //Enum so we can pick a direction to spawn the next room in
-    enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
     [SerializeField] private GameObject roomPrefab;
     [SerializeField] private int numberOfRoomsToGenerate = 10; 
-    private Direction nextRoom = Direction.Up;
-    private float roomSize = 20f; //Rooms will be square for simplicity
-    private Vector2 currentRoomPosition;
+    private float roomSize = 22f; //Rooms will be square for simplicity
+    private Vector3 currentRoomPosition = Vector3.zero;
+
+    //This is a list of unique items. We can use this to track where rooms have already been spawned 
+    private HashSet<Vector3> usedPositions = new HashSet<Vector3>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentRoomPosition = Vector3.zero;
-        //Loop through spawning rooms only up for now as a test 
-        for (int i = 0; i < numberOfRoomsToGenerate; i++)
+        usedPositions.Add(currentRoomPosition);
+        //Loop through spawning rooms
+        for (int i = 0; i < numberOfRoomsToGenerate;)
         {
-            currentRoomPosition.x += roomSize;
-            Instantiate(roomPrefab, new Vector3(currentRoomPosition.x, currentRoomPosition.y, 0), Quaternion.identity);
+            //Pick a direction and calculate next room position
+            int directionIndex = Random.Range(0, 4);
+            Vector3 nextPos = currentRoomPosition; //Temporary storage for next room
+            switch(directionIndex)
+            {
+                case 0: 
+                    nextPos.z += roomSize;
+                    break;
+                case 1:
+                    nextPos.z -= roomSize;
+                    break;
+                case 2:
+                    nextPos.x -= roomSize;
+                    break;
+                case 3:
+                    nextPos.x += roomSize;
+                    break;
+            }
+            //Invalid position, try again
+            if(usedPositions.Contains(nextPos))
+            {
+                continue;
+            }
+            //Valid position, add position to usedPositions and spawn room
+            currentRoomPosition = nextPos;
+            usedPositions.Add(currentRoomPosition);
+            Instantiate(roomPrefab, currentRoomPosition, Quaternion.identity);
+            i++;
         }
     }
 
