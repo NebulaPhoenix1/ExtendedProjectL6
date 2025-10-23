@@ -12,7 +12,7 @@ public class RoomGenerator : MonoBehaviour
 
     [SerializeField] private GameObject roomPrefab;
     [SerializeField] private int numberOfRoomsToGenerate = 10; 
-    private float roomSize = 22f; //Rooms will be square for simplicity
+    private float roomSize = 21f; //Rooms will be square for simplicity
     private Vector3 currentRoomPosition = Vector3.zero;
 
     //This is a list of unique items. We can use this to track where rooms have already been spawned 
