@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class RoomGenerator : MonoBehaviour
 {
     /* 
@@ -19,6 +19,8 @@ public class RoomGenerator : MonoBehaviour
     private RoomController lastRoom;
     private GameObject instantiatedRoom;
 
+    public UnityEvent InitalRoomsGenerated;
+
     //This is a list of unique items. We can use this to track where rooms have already been spawned 
     private HashSet<Vector3> usedPositions = new HashSet<Vector3>();
 
@@ -27,6 +29,7 @@ public class RoomGenerator : MonoBehaviour
     {
         //Current room is first pre placed room
         currentRoom = FindObjectsByType<RoomController>(FindObjectsSortMode.None)[0];
+        InitalRoomsGenerated.AddListener(currentRoom.DoorDisable);
 
         usedPositions.Add(currentRoomPosition);
         //Loop through spawning rooms
@@ -59,6 +62,7 @@ public class RoomGenerator : MonoBehaviour
             currentRoomPosition = nextPos;
             usedPositions.Add(currentRoomPosition);
             instantiatedRoom = Instantiate(roomPrefab, currentRoomPosition, Quaternion.identity);
+            InitalRoomsGenerated.AddListener(instantiatedRoom.GetComponent<RoomController>().DoorDisable);
 
             //Link Rooms
             lastRoom = currentRoom;
@@ -66,8 +70,12 @@ public class RoomGenerator : MonoBehaviour
             currentRoom = instantiatedRoom.GetComponent<RoomController>();
             currentRoom.previousRoom = lastRoom;
 
+            //Get every game object with room controller component subscribed to unity event and invoke it
+
+
             i++;
         }
+        InitalRoomsGenerated.Invoke();
     }
 
     // Update is called once per frame
