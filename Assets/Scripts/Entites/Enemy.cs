@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 //Use NavMesh for pathfinding
 //Enemies have 3 difficulties
@@ -18,12 +19,23 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     private AIState currentState = AIState.Pathing;
 
+    private Health health;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         if (agent != null && agent.isOnNavMesh && playerTransform != null) { isActive = true; } 
+        
+        //Get health component, and if it does not exist create one
+        health = GetComponent<Health>();
+        if(!health )
+        {
+            health = this.gameObject.AddComponent<Health>();
+        }
+        //Set up events for on death
+        health.OnDeath.AddListener(OnDeath);
     }
 
     // Update is called once per frame
@@ -65,5 +77,11 @@ public class Enemy : MonoBehaviour
             //Attack logic here
             //Debug.Log("Attacking Player");
         }
+    }
+
+    //Deletes entity (animation in future)
+    public void OnDeath()
+    {
+        Destroy(this.gameObject);
     }
 }

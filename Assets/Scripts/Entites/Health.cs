@@ -35,14 +35,19 @@ public class Health : MonoBehaviour
     {
         if(!isInvincible)
         {
-            health -= (int)dmgAmount;
-            OnDamageTaken.Invoke();
-            if (health <= 0)
+            if(health - (int)dmgAmount <= 0)
             {
+                Debug.Log(gameObject.name + " took " + dmgAmount + " damage and has died.");
+                health = 0;
                 OnDeath.Invoke();
             }
-            Debug.Log(gameObject.name + " took " + dmgAmount + " damage. Current Health: " + health);
-            StartCoroutine(Invincibility());
+            else
+            {
+                health -= (int)dmgAmount;
+                OnDamageTaken.Invoke();
+                Debug.Log(gameObject.name + " took " + dmgAmount + " damage. Current Health: " + health);
+                StartCoroutine(Invincibility());
+            }
         }
       
     }
@@ -62,7 +67,9 @@ public class Health : MonoBehaviour
     private IEnumerator Invincibility()
     {
         isInvincible = true;
+        Debug.Log(gameObject.name + " is now invincible for " + invincibilityTime + " seconds.");
         yield return new WaitForSeconds(invincibilityTime);
         isInvincible = false;
+        Debug.Log(gameObject.name + " is no longer invincible.");
     }
 }
