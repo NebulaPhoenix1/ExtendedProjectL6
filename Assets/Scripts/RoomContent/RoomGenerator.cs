@@ -15,12 +15,19 @@ public class RoomGenerator : MonoBehaviour
     private float roomSize = 21f; //Rooms will be square for simplicity
     private Vector3 currentRoomPosition = Vector3.zero;
 
+    private RoomController currentRoom;
+    private RoomController lastRoom;
+    private GameObject instantiatedRoom;
+
     //This is a list of unique items. We can use this to track where rooms have already been spawned 
     private HashSet<Vector3> usedPositions = new HashSet<Vector3>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Current room is first pre placed room
+        currentRoom = FindObjectsByType<RoomController>(FindObjectsSortMode.None)[0];
+
         usedPositions.Add(currentRoomPosition);
         //Loop through spawning rooms
         for (int i = 0; i < numberOfRoomsToGenerate;)
@@ -51,7 +58,14 @@ public class RoomGenerator : MonoBehaviour
             //Valid position, add position to usedPositions and spawn room
             currentRoomPosition = nextPos;
             usedPositions.Add(currentRoomPosition);
-            Instantiate(roomPrefab, currentRoomPosition, Quaternion.identity);
+            instantiatedRoom = Instantiate(roomPrefab, currentRoomPosition, Quaternion.identity);
+
+            //Link Rooms
+            lastRoom = currentRoom;
+            lastRoom.nextRoom = instantiatedRoom.GetComponent<RoomController>();
+            currentRoom = instantiatedRoom.GetComponent<RoomController>();
+            currentRoom.previousRoom = lastRoom;
+
             i++;
         }
     }
