@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1719644864020039424}
   - component: {fileID: 7412200206057835924}
   - component: {fileID: 2502088190028801507}
-  - component: {fileID: 5650797850435700160}
   - component: {fileID: 5156442356900285167}
   - component: {fileID: 8718092753624028465}
   - component: {fileID: 9183093874800970890}
@@ -120,28 +119,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!195 &5650797850435700160
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6734408284101330513}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5000001
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &5156442356900285167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 100
+  invincibilityTime: 0.8
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
