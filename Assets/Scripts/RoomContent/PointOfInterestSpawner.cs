@@ -19,5 +19,6 @@ public class PointOfInterestSpawner : MonoBehaviour
         //Select Random POI
         int randomIndex = Random.Range(0, pointsOfInterestPrefabs.Length);
         Instantiate(pointsOfInterestPrefabs[randomIndex], transform.position, Quaternion.identity, transform);
+       
     }
 }

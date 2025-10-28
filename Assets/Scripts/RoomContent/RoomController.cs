@@ -9,7 +9,6 @@ public class RoomController : MonoBehaviour
     */
 
     private bool isCleared = false;
-    private int enemyCount = 0;
     public RoomController previousRoom;
     public RoomController nextRoom;
 
@@ -22,6 +21,14 @@ public class RoomController : MonoBehaviour
     private GameObject nextDoor;
     private GameObject previousDoor;
 
+    //These variables keep track of room contents
+    //Each POI has a POIData component which has a POI Data scriptable object assigned to it
+    //Each scriptable object stores how many enemies there are, whether its trapped or has loot. 
+
+    private int totalEnemies = 0;
+    private int totalTraps = 0;
+    private int totalLoot = 0;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,7 +60,7 @@ public class RoomController : MonoBehaviour
                 nextDoor = doorRight;
             }
             //Disable next door for testing
-            nextDoor.SetActive(false);
+            //nextDoor.SetActive(false);
         }
         //Subtract this room's position from the previous to determine which door should open when the room unlocks
         if (previousRoom != null)
@@ -76,10 +83,35 @@ public class RoomController : MonoBehaviour
                 previousDoor = doorRight;
             }
             //Disable previous door for testing
-            previousDoor.SetActive(false);
+            //previousDoor.SetActive(false);
         }
     }
 
+    // Function to update room content counts, this should be called by POI spawners
+    public void updateRoomDataCount(int enemies, int traps, int loot)
+    {
+        totalEnemies += enemies;
+        totalTraps += traps;
+        totalLoot += loot;
+
+        if(totalEnemies == 0 && totalLoot == 0)
+        {
+            isCleared = true;
+            UnlockRoom();
+        }
+    }
+
+    private void UnlockRoom()
+    {
+        //Disable door to next room (This room's next door and the next room's previous door)
+
+        if (nextDoor && nextRoom)
+        {
+            nextDoor.SetActive(false);
+            nextRoom.previousDoor.SetActive(false);
+        }
+        else { Debug.LogWarning("Next door or next room is null on " + (gameObject.name) + " so room cannot unlock."); }
+    }
     // Update is called once per frame
     void Update()
     {

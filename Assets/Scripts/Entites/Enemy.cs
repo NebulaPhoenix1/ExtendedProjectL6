@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour
     private AIState currentState = AIState.Pathing;
 
     private Health health;
+    private RoomController parentRoom; //Each enemy belong to a room, we need a reference to it to update enemy count on death
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,6 +38,16 @@ public class Enemy : MonoBehaviour
         }
         //Set up events for on death
         health.OnDeath.AddListener(OnDeath);
+        //Get parent room controller
+        parentRoom = GetComponentInParent<RoomController>();
+        if (!parentRoom)
+        {
+            Debug.LogWarning("Enemy " + gameObject.name + " has no parent RoomController");
+        }
+        else
+        {
+            health.OnDeath.AddListener(() => parentRoom.updateRoomDataCount(-1, 0, 0));
+        }
     }
 
     // Update is called once per frame
