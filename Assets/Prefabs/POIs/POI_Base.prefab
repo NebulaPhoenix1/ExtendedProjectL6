@@ -48,6 +48,7 @@ MonoBehaviour:
   pointsOfInterestPrefabs:
   - {fileID: 7661564874736227630, guid: afdb3ca7b5968e64aacfae6da207dfb9, type: 3}
   - {fileID: 7661564874736227630, guid: 1d31610eced81dc4498a2121129d0de5, type: 3}
+  - {fileID: 7661564874736227630, guid: 64df3a3012c12d34b945736891350230, type: 3}
 --- !u!1001 &7446510608984578230
 PrefabInstance:
   m_ObjectHideFlags: 0
