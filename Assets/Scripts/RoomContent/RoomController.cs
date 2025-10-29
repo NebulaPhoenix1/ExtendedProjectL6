@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RoomController : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class RoomController : MonoBehaviour
         There is a reference to the next and previous rooms so we can navigate between them
         This will keep track of enemies, items, and other interactable objects in the room
     */
+
+    public UnityEvent RoomCleared;
+    private StatTracker statTracker;
 
     private bool isCleared = false;
     public RoomController previousRoom;
@@ -28,11 +32,20 @@ public class RoomController : MonoBehaviour
     private int totalEnemies = 0;
     private int totalTraps = 0;
     private int totalLoot = 0;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        statTracker = StatTracker.Instance;
+        if (statTracker == null)
+        {
+            Debug.LogError("StatTracker instance not found by RoomController Component");
+        }
+        else
+        {
+            RoomCleared.AddListener(() => statTracker.explorationStats.IncrementRoomsExplored());
+        }
+       
     }
 
     public void DoorDisable()
@@ -94,7 +107,7 @@ public class RoomController : MonoBehaviour
         totalTraps += traps;
         totalLoot += loot;
 
-        if(totalEnemies == 0 && totalLoot == 0)
+        if (totalEnemies == 0 && totalLoot == 0)
         {
             isCleared = true;
             UnlockRoom();
@@ -104,7 +117,6 @@ public class RoomController : MonoBehaviour
     private void UnlockRoom()
     {
         //Disable door to next room (This room's next door and the next room's previous door)
-
         if (nextDoor && nextRoom)
         {
             nextDoor.SetActive(false);
@@ -115,6 +127,6 @@ public class RoomController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

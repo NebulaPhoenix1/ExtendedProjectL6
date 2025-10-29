@@ -23,9 +23,11 @@ public class Enemy : MonoBehaviour
     private Health health;
     private RoomController parentRoom; //Each enemy belong to a room, we need a reference to it to update enemy count on death
 
+    private StatTracker statTracker; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
+    {        
         agent = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         if (agent != null && agent.isOnNavMesh && playerTransform != null) { isActive = true; } 
@@ -38,6 +40,19 @@ public class Enemy : MonoBehaviour
         }
         //Set up events for on death
         health.OnDeath.AddListener(OnDeath);
+
+        //Get Stat Tracker instance
+        statTracker = StatTracker.Instance;
+        if (statTracker == null)
+        {
+            Debug.LogError("StatTracker instance not found by: " + gameObject.name);
+        }
+        else
+        {
+            Debug.Log("StatTracker instance found by: " + gameObject.name);
+            health.OnDeath.AddListener(() => statTracker.combatStats.IncrementMeleeEnemiesDefeated());
+        }
+
         //Get parent room controller
         parentRoom = GetComponentInParent<RoomController>();
         if (!parentRoom)

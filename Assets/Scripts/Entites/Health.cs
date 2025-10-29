@@ -49,7 +49,6 @@ public class Health : MonoBehaviour
                 StartCoroutine(Invincibility());
             }
         }
-      
     }
 
     //Takes a uint for DMG amount to ensure we never get negative healing (damage)
