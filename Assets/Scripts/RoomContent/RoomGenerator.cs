@@ -29,7 +29,7 @@ public class RoomGenerator : MonoBehaviour
     {
         //Current room is first pre placed room
         currentRoom = FindObjectsByType<RoomController>(FindObjectsSortMode.None)[0];
-        InitalRoomsGenerated.AddListener(currentRoom.DoorDisable);
+        InitalRoomsGenerated.AddListener(currentRoom.DetermineDoorSequence);
 
         usedPositions.Add(currentRoomPosition);
         //Loop through spawning rooms
@@ -62,7 +62,7 @@ public class RoomGenerator : MonoBehaviour
             currentRoomPosition = nextPos;
             usedPositions.Add(currentRoomPosition);
             instantiatedRoom = Instantiate(roomPrefab, currentRoomPosition, Quaternion.identity);
-            InitalRoomsGenerated.AddListener(instantiatedRoom.GetComponent<RoomController>().DoorDisable);
+            InitalRoomsGenerated.AddListener(instantiatedRoom.GetComponent<RoomController>().DetermineDoorSequence);
 
             //Link Rooms
             lastRoom = currentRoom;

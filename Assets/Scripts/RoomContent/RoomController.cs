@@ -48,7 +48,7 @@ public class RoomController : MonoBehaviour
        
     }
 
-    public void DoorDisable()
+    public void DetermineDoorSequence()
     {
         //Calcaulte which doors to enable based on room connections
         //Subtract this room's position from the next and previous rooms to determine direction
