@@ -9,9 +9,22 @@ public class Trap : MonoBehaviour
     public UnityEvent trapPlayerDamageDealt;
     public UnityEvent trapEnemyDamageDealt;
 
+    private RoomController parentRoom;
+
     void Start()
     {
-        
+        parentRoom = GetComponentInParent<RoomController>();
+        if (parentRoom != null)
+        {
+            trapPlayerDamageDealt.AddListener(() =>
+            {
+                parentRoom.GetComponent<RoomStats>().explorationStats.IncrementTrapsPlayerActivated();
+            });
+            trapEnemyDamageDealt.AddListener(() =>
+            {
+                parentRoom.GetComponent<RoomStats>().explorationStats.IncrementTrapsEnemyActivated();
+            });
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

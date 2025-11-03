@@ -14,6 +14,7 @@ public class StatTracker : MonoBehaviour
     private Queue<RoomStats> recentRoomStats = new Queue<RoomStats>();
     [SerializeField] private int maxRecentRooms = 20;
 
+    private int roomsExplored = 0;
     
 
     void Awake()
@@ -40,6 +41,7 @@ public class StatTracker : MonoBehaviour
             recentRoomStats.Dequeue();
         }
         recentRoomStats.Enqueue(latestRoom);
+        roomsExplored++;
        
     }
 }

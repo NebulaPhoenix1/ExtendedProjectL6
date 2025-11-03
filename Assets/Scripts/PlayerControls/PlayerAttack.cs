@@ -9,8 +9,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackCooldown = 0.6f;
     private BoxCollider hitDetectionVolume;
     private float currentCooldown = 0f;
-    private StatTracker statTracker;
 
+    public RoomStats currentRoomStats;
 
     private uint totalDamage = 0;
     public UnityEvent OnAttack;
@@ -30,6 +30,8 @@ public class PlayerAttack : MonoBehaviour
         {
             Debug.LogError("Hit detection volume (BoxCollider) not found in children for PlayerAttack script attached to " + gameObject.name);
         }
+        OnAttack.AddListener(UpdateAttacksUsed);
+        OnAttackHit.AddListener(UpdateAttacksHit);
     }
 
     // Update is called once per frame
@@ -64,6 +66,23 @@ public class PlayerAttack : MonoBehaviour
         if(totalDamage > 0)
         {
             OnAttackHit.Invoke();
+        }
+    }
+
+    private void UpdateAttacksUsed()
+    {
+        if(currentRoomStats != null)
+        {
+            currentRoomStats.combatStats.IncrementAttacksUsed();
+        }
+    }
+
+    private void UpdateAttacksHit()
+    {
+        if(currentRoomStats != null)
+        {
+            currentRoomStats.combatStats.IncrementAttacksHit();
+            currentRoomStats.combatStats.AddDamageDealt(totalDamage);
         }
     }
 }

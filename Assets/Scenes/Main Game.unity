@@ -397,6 +397,23 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &475678911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6734408284101330513, guid: 8171278a600551d40b7c5a1449e5d91e, type: 3}
+  m_PrefabInstance: {fileID: 7735110075483149213}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &475678921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475678911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4712eeca6bdb540498b06d53ee49f3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896d2c93f643e44f68712463123ac595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatTracker
+  maxRecentRooms: 20
 --- !u!1 &1478075024
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,6 +764,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1996205953 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4543724311674679562, guid: e59d6094d2707f64fa74885d2f8ea611, type: 3}
+  m_PrefabInstance: {fileID: 1108788219915856241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3750b1846bf8d545b91566ffdf30447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomStats
 --- !u!1001 &1108788219915856241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -888,6 +917,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5418326390021719017, guid: 8171278a600551d40b7c5a1449e5d91e, type: 3}
+      propertyPath: currentRoomStats
+      value: 
+      objectReference: {fileID: 1996205953}
     - target: {fileID: 6734408284101330513, guid: 8171278a600551d40b7c5a1449e5d91e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -899,7 +932,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6734408284101330513, guid: 8171278a600551d40b7c5a1449e5d91e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 475678921}
   m_SourcePrefab: {fileID: 100100000, guid: 8171278a600551d40b7c5a1449e5d91e, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

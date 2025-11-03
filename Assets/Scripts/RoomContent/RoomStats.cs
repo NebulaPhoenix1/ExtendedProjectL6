@@ -63,16 +63,12 @@ public class CombatStats
 [System.Serializable]
 public class ExplorationStats
 {
-    private int roomsExplored; //How many rooms the player completed
     private int trapsPlayerActivated; //How many traps the player triggered
     private int trapsEnemyActivated; //How many traps enemies triggered
     private int lootCollected; //How much loot the player has collected
     private float timeSpent; //Total time spent playing
 
-    public void IncrementRoomsExplored()
-    {
-        roomsExplored++;
-    }
+   
     public void IncrementTrapsPlayerActivated()
     {
         trapsPlayerActivated++;

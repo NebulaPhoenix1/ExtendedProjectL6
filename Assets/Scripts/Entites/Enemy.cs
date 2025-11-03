@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     private Health health;
     private RoomController parentRoom; //Each enemy belong to a room, we need a reference to it to update enemy count on death
 
-    private StatTracker statTracker; 
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,6 +51,7 @@ public class Enemy : MonoBehaviour
         else
         {
             health.OnDeath.AddListener(() => parentRoom.updateRoomDataCount(-1, 0, 0));
+            health.OnDeath.AddListener(() => parentRoom.GetComponent<RoomStats>().combatStats.IncrementMeleeEnemiesDefeated());
         }
     }
 

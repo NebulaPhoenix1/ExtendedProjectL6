@@ -33,14 +33,29 @@ public class RoomController : MonoBehaviour
     private int totalTraps = 0;
     private int totalLoot = 0;
 
-    private Transform playerTransform;
+    private GameObject player;
     private bool playerInRoom = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         statTracker = StatTracker.Instance;
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        //Update player current room stats on room cleared when Unity Event is fired
+        RoomCleared.AddListener(() =>
+        {
+            var playerAttack = player.GetComponent<PlayerAttack>();
+            if (playerAttack != null)
+            {
+                if (nextRoom != null)
+                {
+                    playerAttack.currentRoomStats = nextRoom.GetComponent<RoomStats>();
+                    Debug.Log("Player stats current room updated!");
+                }
+            }
+
+        });
     }
 
     public bool getRoomClearStatus()
@@ -128,12 +143,17 @@ public class RoomController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Fail safe to unlock room
+        if (totalEnemies == 0 && totalLoot == 0 && IsPlayerInRoom())
+        {
+            isCleared = true;
+            UnlockRoom();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform == playerTransform)
+        if (other.transform == player.transform)
         {
             playerInRoom = true;
         }
@@ -141,7 +161,7 @@ public class RoomController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform == playerTransform)
+        if (other.transform == player.transform)
         {
             playerInRoom = false;
         }

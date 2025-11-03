@@ -19,6 +19,9 @@ public class Health : MonoBehaviour
     private int health;
     private bool isInvincible = false;
 
+    private int lastHealAmount = 0;
+    private int lastDamageAmount = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,9 +38,10 @@ public class Health : MonoBehaviour
     {
         if(!isInvincible)
         {
-            if(health - (int)dmgAmount <= 0)
+            lastDamageAmount = (int)dmgAmount;
+            if (health - (int)dmgAmount <= 0)
             {
-                Debug.Log(gameObject.name + " took " + dmgAmount + " damage and has died.");
+                //Debug.Log(gameObject.name + " took " + dmgAmount + " damage and has died.");
                 health = 0;
                 OnDeath.Invoke();
             }
@@ -45,7 +49,7 @@ public class Health : MonoBehaviour
             {
                 health -= (int)dmgAmount;
                 OnDamageTaken.Invoke();
-                Debug.Log(gameObject.name + " took " + dmgAmount + " damage. Current Health: " + health);
+                //Debug.Log(gameObject.name + " took " + dmgAmount + " damage. Current Health: " + health);
                 StartCoroutine(Invincibility());
             }
         }
@@ -54,6 +58,7 @@ public class Health : MonoBehaviour
     //Takes a uint for DMG amount to ensure we never get negative healing (damage)
     public void RecieveHealing(uint healAmount)
     {
+        lastHealAmount = (int)healAmount;
         health += (int)healAmount;
         if(health > maxHealth)
         {
@@ -70,5 +75,15 @@ public class Health : MonoBehaviour
         yield return new WaitForSeconds(invincibilityTime);
         isInvincible = false;
         Debug.Log(gameObject.name + " is no longer invincible.");
+    }
+
+    public int getLastHealAmount()
+    {
+        return lastHealAmount;
+    }
+
+    public int getLastDamageAmount()
+    {
+        return lastDamageAmount;
     }
 }
