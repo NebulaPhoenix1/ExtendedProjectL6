@@ -41,17 +41,6 @@ public class Enemy : MonoBehaviour
         //Set up events for on death
         health.OnDeath.AddListener(OnDeath);
 
-        //Get Stat Tracker instance
-        statTracker = StatTracker.Instance;
-        if (statTracker == null)
-        {
-            Debug.LogError("StatTracker instance not found by: " + gameObject.name);
-        }
-        else
-        {
-            Debug.Log("StatTracker instance found by: " + gameObject.name);
-            health.OnDeath.AddListener(() => statTracker.combatStats.IncrementMeleeEnemiesDefeated());
-        }
 
         //Get parent room controller
         parentRoom = GetComponentInParent<RoomController>();

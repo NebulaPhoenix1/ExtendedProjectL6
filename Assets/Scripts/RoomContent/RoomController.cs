@@ -15,7 +15,7 @@ public class RoomController : MonoBehaviour
     private bool isCleared = false;
     public RoomController previousRoom;
     public RoomController nextRoom;
-
+    
     [Tooltip("Doors")]
     [SerializeField] private GameObject doorUp;
     [SerializeField] private GameObject doorDown;
@@ -33,19 +33,19 @@ public class RoomController : MonoBehaviour
     private int totalTraps = 0;
     private int totalLoot = 0;
 
+    private Transform playerTransform;
+    private bool playerInRoom = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         statTracker = StatTracker.Instance;
-        if (statTracker == null)
-        {
-            Debug.LogError("StatTracker instance not found by RoomController Component");
-        }
-        else
-        {
-            RoomCleared.AddListener(() => statTracker.explorationStats.IncrementRoomsExplored());
-        }
-       
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    public bool getRoomClearStatus()
+    {
+        return isCleared;
     }
 
     public void DetermineDoorSequence()
@@ -107,7 +107,7 @@ public class RoomController : MonoBehaviour
         totalTraps += traps;
         totalLoot += loot;
 
-        if (totalEnemies == 0 && totalLoot == 0)
+        if (totalEnemies == 0 && totalLoot == 0 && IsPlayerInRoom())
         {
             isCleared = true;
             UnlockRoom();
@@ -123,10 +123,32 @@ public class RoomController : MonoBehaviour
             nextRoom.previousDoor.SetActive(false);
         }
         else { Debug.LogWarning("Next door or next room is null on " + (gameObject.name) + " so room cannot unlock."); }
+        RoomCleared.Invoke();
     }
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform == playerTransform)
+        {
+            playerInRoom = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform == playerTransform)
+        {
+            playerInRoom = false;
+        }
+    }
+
+    public bool IsPlayerInRoom()
+    {
+        return playerInRoom;
     }
 }

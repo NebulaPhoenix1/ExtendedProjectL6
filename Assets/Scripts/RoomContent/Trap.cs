@@ -5,22 +5,13 @@ public class Trap : MonoBehaviour
 {
     [SerializeField] private uint damageAmount = 1;
 
-    private StatTracker statTracker;
+    
     public UnityEvent trapPlayerDamageDealt;
     public UnityEvent trapEnemyDamageDealt;
 
     void Start()
     {
-        statTracker = StatTracker.Instance;
-        if (statTracker == null)
-        {
-            Debug.LogError("StatTracker instance not found by Trap Component");
-        }
-        else
-        {
-            trapPlayerDamageDealt.AddListener(() => statTracker.explorationStats.IncrementTrapsPlayerActivated());
-            trapEnemyDamageDealt.AddListener(() => statTracker.explorationStats.IncrementTrapsEnemyActivated());
-        }
+        
     }
     private void OnTriggerEnter(Collider other)
     {

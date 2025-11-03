@@ -145,6 +145,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4936324050275160593}
   - component: {fileID: 7208171762161687353}
+  - component: {fileID: 4543724311674679562}
+  - component: {fileID: 448100951317516980}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -190,12 +192,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82eccfb77dece084ea1bdfbbeee32a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  RoomCleared:
+    m_PersistentCalls:
+      m_Calls: []
   previousRoom: {fileID: 0}
   nextRoom: {fileID: 0}
   doorUp: {fileID: 6221578572131287309}
   doorDown: {fileID: 6658292736105713280}
   doorLeft: {fileID: 1746647814800685156}
   doorRight: {fileID: 5262159476018613572}
+--- !u!114 &4543724311674679562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811096064101235949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3750b1846bf8d545b91566ffdf30447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomStats
+--- !u!65 &448100951317516980
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811096064101235949}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 19, y: 10, z: 19}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2030218626169664642
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,19 +30,6 @@ public class PlayerAttack : MonoBehaviour
         {
             Debug.LogError("Hit detection volume (BoxCollider) not found in children for PlayerAttack script attached to " + gameObject.name);
         }
-
-        //Get stat tracker instance
-        statTracker = StatTracker.Instance;
-        if (statTracker == null)
-        {
-            Debug.LogError("StatTracker instance not found by PlayerAttack Component");
-        }
-        else
-        {
-            OnAttack.AddListener(() => statTracker.combatStats.AddDamageDealt(totalDamage));
-            OnAttack.AddListener(() => statTracker.combatStats.IncrementAttacksUsed());
-            OnAttackHit.AddListener(() => statTracker.combatStats.IncrementAttacksHit());
-        }
     }
 
     // Update is called once per frame
