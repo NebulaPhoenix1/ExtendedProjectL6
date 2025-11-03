@@ -86,4 +86,14 @@ public class Health : MonoBehaviour
     {
         return lastDamageAmount;
     }
+
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
 }
