@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 199248890ffaa3c4da3e6c31123c871c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
+  maxHealth: 1000
   invincibilityTime: 0.8
   OnDeath:
     m_PersistentCalls:
@@ -226,6 +226,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   attackDamage: 3
   attackCooldown: 0.6
+  currentRoomStats: {fileID: 0}
+  OnAttack:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAttackHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6941000135783123497
 GameObject:
   m_ObjectHideFlags: 0

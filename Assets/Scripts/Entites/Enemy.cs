@@ -23,7 +23,10 @@ public class Enemy : MonoBehaviour
     private Health health;
     private RoomController parentRoom; //Each enemy belong to a room, we need a reference to it to update enemy count on death
 
-    
+    private float attackCooldown = 2f;
+    private float currentAttackCooldown = 0f;
+    [SerializeField] private BoxCollider hitVolume;
+    [SerializeField] private int attackDamage = 1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,7 +63,13 @@ public class Enemy : MonoBehaviour
     {
         if(isActive)
         {
-            if(currentState == AIState.Pathing)
+            //Tick attack cooldown
+            if(currentAttackCooldown > 0f)
+            {
+                currentAttackCooldown -= Time.deltaTime;
+            }
+            //Update States
+            if (currentState == AIState.Pathing)
             {
                 EnemyPath();
             }
@@ -92,7 +101,21 @@ public class Enemy : MonoBehaviour
         else
         {
             //Attack logic here
-            //Debug.Log("Attacking Player");
+            //Each melee enemy has a cube with a box colldier with is trigger
+            //If player is in this trigger, deal damage to player
+            if(currentAttackCooldown <= 0f)
+            {
+                currentAttackCooldown = attackCooldown;
+                Collider[] hitColliders = Physics.OverlapBox(hitVolume.bounds.center, hitVolume.bounds.extents, hitVolume.transform.rotation);
+                foreach (Collider collider in hitColliders)
+                {
+                    if (collider.gameObject.CompareTag("Player") && collider.gameObject.TryGetComponent<Health>(out Health playerHealth))
+                    {
+                        playerHealth.TakeDamage((uint)attackDamage);
+                    }
+                }
+            }
+            
         }
     }
 
