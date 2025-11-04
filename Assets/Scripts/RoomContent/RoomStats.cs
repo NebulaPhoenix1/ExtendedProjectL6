@@ -4,9 +4,9 @@ using UnityEngine.Events;
 [System.Serializable]
 public class PlayerStats
 {
-    private int healingDone; //Total healing done by the player
-    private int damageTaken; //Total damage taken by the player
-    private int deathCount; //How many times the player has died
+    [SerializeField] private int healingDone; //Total healing done by the player
+    [SerializeField] private int damageTaken; //Total damage taken by the player
+    [SerializeField] private int deathCount; //How many times the player has died
 
     public void AddHealingDone(uint amount)
     {
@@ -25,12 +25,12 @@ public class PlayerStats
 [System.Serializable]
 public class CombatStats
 {
-    private int enemiesDefeated; //How many enemies the player has killed
-    private int meleeEnemiesDefeated; //How many melee enemies the player has killed
-    private int rangedEnemiesDefeated; //How many ranged enemies the player has killed
-    private int attacksUsed; //How many times the player attacked
-    private int attacksHit; //How many attacks hit something
-    private int damageDealt; //Total damage dealt to enemies
+    [SerializeField] private int enemiesDefeated; //How many enemies the player has killed
+    [SerializeField] private int meleeEnemiesDefeated; //How many melee enemies the player has killed
+    [SerializeField] private int rangedEnemiesDefeated; //How many ranged enemies the player has killed
+    [SerializeField] private int attacksUsed; //How many times the player attacked
+    [SerializeField] private int attacksHit; //How many attacks hit something
+    [SerializeField] private int damageDealt; //Total damage dealt to enemies
 
     public void IncrementMeleeEnemiesDefeated()
     {
@@ -63,10 +63,10 @@ public class CombatStats
 [System.Serializable]
 public class ExplorationStats
 {
-    private int trapsPlayerActivated; //How many traps the player triggered
-    private int trapsEnemyActivated; //How many traps enemies triggered
-    private int lootCollected; //How much loot the player has collected
-    private float timeSpent; //Total time spent playing
+    [SerializeField] private int trapsPlayerActivated; //How many traps the player triggered
+    [SerializeField] private int trapsEnemyActivated; //How many traps enemies triggered
+    [SerializeField] private int lootCollected; //How much loot the player has collected
+    [SerializeField] private float timeSpent; //Total time spent playing
 
    
     public void IncrementTrapsPlayerActivated()
@@ -129,3 +129,27 @@ public class RoomStats : MonoBehaviour
 
     }
 }
+
+
+//We need a non-MonoBehaviour serializable class to store room stats data for JSON serialization
+
+[System.Serializable]
+public class RoomStatsData
+{ 
+    public PlayerStats playerStats;
+    public CombatStats combatStats;
+    public ExplorationStats explorationStats;
+    
+    public RoomStatsData(RoomStats roomStats)
+    {
+        //Ensure we make a copy of stats data, not just a reference
+        //We serialixe to JSON and back to create a deep copy
+        playerStats = JsonUtility.FromJson<PlayerStats>(JsonUtility.ToJson(roomStats.playerStats));
+        combatStats = JsonUtility.FromJson<CombatStats>(JsonUtility.ToJson(roomStats.combatStats));
+        explorationStats = JsonUtility.FromJson<ExplorationStats>(JsonUtility.ToJson(roomStats.explorationStats));
+    }
+
+    public RoomStatsData() { }
+
+}
+
