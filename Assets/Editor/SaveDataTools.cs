@@ -12,20 +12,16 @@ public class SaveDataTools
         EditorUtility.RevealInFinder(path);
     }
     [MenuItem("Tools/Save Data/Print Save File Data")]
-    static public void PrintSaveData()
+    static public void DisplaySaveDataFile()
     {
+        //Use DisplaySaveJSON window to show save file data
         string pathToSaveFile = Path.Combine(Application.persistentDataPath, "Play Time Data.json");
-        if (File.Exists(pathToSaveFile))
-        {
-            string jsonData = File.ReadAllText(pathToSaveFile);
-            Debug.Log("Save File Data:\n" + jsonData);
-        }
-        else
-        {
-            Debug.LogWarning("No save file found at: " + pathToSaveFile);
-        }
-    }
+        //Read the file content
+        string readData = File.ReadAllText(pathToSaveFile);
 
+        DisplaySaveJSON window = (DisplaySaveJSON)EditorWindow.GetWindow(typeof(DisplaySaveJSON));
+        window.content = readData;
+    }
     [MenuItem("Tools/Save Data/Delete Save File")]
     static public void DeleteSaveFile()
     {
