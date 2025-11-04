@@ -122,7 +122,7 @@ public class RoomController : MonoBehaviour
         totalTraps += traps;
         totalLoot += loot;
 
-        if (totalEnemies == 0 && totalLoot == 0 && IsPlayerInRoom())
+        if (totalEnemies == 0 && totalLoot == 0 && IsPlayerInRoom() && !isCleared)
         {
             isCleared = true;
             UnlockRoom();
@@ -144,7 +144,7 @@ public class RoomController : MonoBehaviour
     void Update()
     {
         //Fail safe to unlock room
-        if (totalEnemies == 0 && totalLoot == 0 && IsPlayerInRoom())
+        if (totalEnemies == 0 && totalLoot == 0 && IsPlayerInRoom() && !isCleared)
         {
             isCleared = true;
             UnlockRoom();

@@ -781,7 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896d2c93f643e44f68712463123ac595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatTracker
-  maxRecentRooms: 20
+  maxRecentRooms: 3
 --- !u!1 &1478075024
 GameObject:
   m_ObjectHideFlags: 0
