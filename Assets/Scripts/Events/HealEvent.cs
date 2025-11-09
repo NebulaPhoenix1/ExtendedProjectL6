@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 
 //Events for keeping track of healing done in game for DDA later
+[System.Serializable]
 public class HealEvent
 {
     private uint healAmount;

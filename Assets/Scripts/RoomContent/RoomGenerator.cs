@@ -18,11 +18,13 @@ public class RoomGenerator : MonoBehaviour
     private RoomController currentRoom;
     private RoomController lastRoom;
     private GameObject instantiatedRoom;
-
     public UnityEvent InitalRoomsGenerated;
 
     //This is a list of unique items. We can use this to track where rooms have already been spawned 
     private HashSet<Vector3> usedPositions = new HashSet<Vector3>();
+
+    //A stack to keep track of rooms for removal later on
+    private Stack<RoomController> spawnedRooms = new Stack<RoomController>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,49 +37,64 @@ public class RoomGenerator : MonoBehaviour
         //Loop through spawning rooms
         for (int i = 0; i < numberOfRoomsToGenerate;)
         {
-            //Pick a direction and calculate next room position
-            int directionIndex = Random.Range(0, 4);
-            Vector3 nextPos = currentRoomPosition; //Temporary storage for next room
-            switch(directionIndex)
-            {
-                case 0: 
-                    nextPos.z += roomSize;
-                    break;
-                case 1:
-                    nextPos.z -= roomSize;
-                    break;
-                case 2:
-                    nextPos.x -= roomSize;
-                    break;
-                case 3:
-                    nextPos.x += roomSize;
-                    break;
-            }
-            //Invalid position, try again
-            if(usedPositions.Contains(nextPos))
-            {
-                continue;
-            }
-            //Valid position, add position to usedPositions and spawn room
-            currentRoomPosition = nextPos;
-            usedPositions.Add(currentRoomPosition);
-            instantiatedRoom = Instantiate(roomPrefab, currentRoomPosition, Quaternion.identity);
-            InitalRoomsGenerated.AddListener(instantiatedRoom.GetComponent<RoomController>().DetermineDoorSequence);
-
-            //Link Rooms
-            lastRoom = currentRoom;
-            lastRoom.nextRoom = instantiatedRoom.GetComponent<RoomController>();
-            currentRoom = instantiatedRoom.GetComponent<RoomController>();
-            currentRoom.previousRoom = lastRoom;
-
-            //Get every game object with room controller component subscribed to unity event and invoke it
-
-
+            GenerateRoom();
             i++;
         }
         InitalRoomsGenerated.Invoke();
     }
 
+    private void GenerateRoom()
+    {
+        //Pick a direction and calculate next room position
+        int directionIndex = Random.Range(0, 4);
+        Vector3 nextPos = currentRoomPosition; //Temporary storage for next room
+        switch (directionIndex)
+        {
+            case 0:
+                nextPos.z += roomSize;
+                break;
+            case 1:
+                nextPos.z -= roomSize;
+                break;
+            case 2:
+                nextPos.x -= roomSize;
+                break;
+            case 3:
+                nextPos.x += roomSize;
+                break;
+        }
+        //Invalid position, try again
+        if (usedPositions.Contains(nextPos))
+        {
+            GenerateRoom();
+            return;
+        }
+        //Valid position, add position to usedPositions and spawn room
+        currentRoomPosition = nextPos;
+        usedPositions.Add(currentRoomPosition);
+        instantiatedRoom = Instantiate(roomPrefab, currentRoomPosition, Quaternion.identity);
+        InitalRoomsGenerated.AddListener(instantiatedRoom.GetComponent<RoomController>().DetermineDoorSequence);
+
+        //Link Rooms
+        lastRoom = currentRoom;
+        lastRoom.nextRoom = instantiatedRoom.GetComponent<RoomController>();
+        currentRoom = instantiatedRoom.GetComponent<RoomController>();
+        currentRoom.previousRoom = lastRoom;
+
+        //Add current room to spawned rooms queue
+        spawnedRooms.Push(currentRoom);
+
+    }
+    
+    private void RemoveOldestRoom() 
+    {
+        //This will be called after generating a new room 
+        //We will remove the oldest room and free that position in the hash set
+        RoomController roomToRemove = spawnedRooms.Pop();
+        usedPositions.Remove(roomToRemove.transform.position);
+        Destroy(roomToRemove.gameObject);
+    }
+    
     // Update is called once per frame
     void Update()
     {
