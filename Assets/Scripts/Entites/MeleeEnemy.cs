@@ -27,8 +27,9 @@ public class MeleeEnemy : BaseEnemy
     protected override void Attack()
     {
         if(currentAttackCooldown > 0) { return;  } //Attack on cooldown we must wait
-        else //Not on cooldown, lets process the hit
+        else //Not on cooldown
         {
+            //Get a list of every collider in the trigger, and check to see if one of them is the player if so process the hit
             Collider[] hitColliders = Physics.OverlapBox(hitVolume.bounds.center, hitVolume.bounds.extents, hitVolume.transform.rotation);
             foreach (Collider collider in hitColliders)
             {

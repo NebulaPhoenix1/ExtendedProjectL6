@@ -87,12 +87,25 @@ public class ExplorationStats
     }
 }
 
+[System.Serializable]
+public class RoomContents
+{
+    [SerializeField] private int startingEnemyCount; //How many enemies were there to start off with in the room?
+    [SerializeField] private int trapCount; //How many traps were there in the room?
+    [SerializeField] private int lootCount; //How much loot was there in the room?
+
+    public void SetEnemyCount(int count) { startingEnemyCount = count; }
+    public void SetTrapCount(int count) { trapCount = count; }
+    public void SetLootCount(int count) {  lootCount = count; }
+
+}
 
 public class RoomStats : MonoBehaviour
 {
     public PlayerStats playerStats = new PlayerStats();
     public CombatStats combatStats = new CombatStats();
     public ExplorationStats explorationStats = new ExplorationStats();
+    public RoomContents roomContents = new RoomContents();
 
     private RoomController roomController;
     private StatTracker statTracker;
@@ -101,16 +114,19 @@ public class RoomStats : MonoBehaviour
     {
         roomController = GetComponent<RoomController>();
         roomController.RoomCleared.AddListener(OnRoomCleared);
-       
-       
+        
         statTracker = StatTracker.Instance;
         if (statTracker == null)
         {
             Debug.LogError("StatTracker instance not found by RoomStats Component");
         }
         else
-        { 
-            roomController.RoomDataSave.AddListener(() => StatTracker.Instance.AddRoomStats(this)); 
+        {
+            //Set room contents stats just before we add the room stats to the stat tracker
+            roomController.RoomDataSave.AddListener(() => roomContents.SetEnemyCount(roomController.getStartingEnemyCount()));
+            roomController.RoomDataSave.AddListener(() => roomContents.SetTrapCount(roomController.getTrapCount()));
+            roomController.RoomDataSave.AddListener(() => roomContents.SetLootCount(roomController.getLootCount()));
+            roomController.RoomDataSave.AddListener(() => StatTracker.Instance.AddRoomStats(this));
         }
     }
 
@@ -139,6 +155,7 @@ public class RoomStatsData
     public PlayerStats playerStats;
     public CombatStats combatStats;
     public ExplorationStats explorationStats;
+    public RoomContents roomContents;
     
     public RoomStatsData(RoomStats roomStats)
     {
@@ -147,6 +164,7 @@ public class RoomStatsData
         playerStats = JsonUtility.FromJson<PlayerStats>(JsonUtility.ToJson(roomStats.playerStats));
         combatStats = JsonUtility.FromJson<CombatStats>(JsonUtility.ToJson(roomStats.combatStats));
         explorationStats = JsonUtility.FromJson<ExplorationStats>(JsonUtility.ToJson(roomStats.explorationStats));
+        roomContents = JsonUtility.FromJson<RoomContents>(JsonUtility.ToJson(roomStats.roomContents));
     }
 
     public RoomStatsData() { }

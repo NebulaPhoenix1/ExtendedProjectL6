@@ -63,7 +63,7 @@ public abstract class BaseEnemy : MonoBehaviour
         }
         else
         {
-            health.OnDeath.AddListener(() => parentRoomController.updateRoomDataCount(-1, 0, 0));
+            health.OnDeath.AddListener(() => parentRoomController.EnemyEliminated());
         }
     }
 

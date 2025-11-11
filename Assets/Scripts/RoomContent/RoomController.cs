@@ -18,7 +18,7 @@ public class RoomController : MonoBehaviour
     private bool isCleared = false;
     public RoomController previousRoom;
     public RoomController nextRoom;
-    
+
     [Tooltip("Doors")]
     [SerializeField] private GameObject doorUp;
     [SerializeField] private GameObject doorDown;
@@ -32,7 +32,8 @@ public class RoomController : MonoBehaviour
     //Each POI has a POIData component which has a POI Data scriptable object assigned to it
     //Each scriptable object stores how many enemies there are, whether its trapped or has loot. 
 
-    private int totalEnemies = 0;
+    private int enemiesRemaining = 0;
+    private int startingEnemyCount = 0;
     private int totalTraps = 0;
     private int totalLoot = 0;
 
@@ -126,13 +127,19 @@ public class RoomController : MonoBehaviour
     }
 
     // Function to update room content counts, this should be called by POI spawners
-    public void updateRoomDataCount(int enemies, int traps, int loot)
+    public void updateRoomStartingDataCount(int enemies, int traps, int loot)
     {
-        totalEnemies += enemies;
+        enemiesRemaining += enemies;
+        startingEnemyCount += enemies;
         totalTraps += traps;
         totalLoot += loot;
+    }
 
-        if (totalEnemies == 0 && totalLoot == 0 && IsPlayerInRoom() && !isCleared)
+    //Call with unity events when an enemy is eliminated in the room
+    public void EnemyEliminated()
+    {
+        enemiesRemaining--;
+        if (enemiesRemaining == 0 && totalLoot == 0 && IsPlayerInRoom() && !isCleared)
         {
             isCleared = true;
             UnlockRoom();
@@ -169,7 +176,7 @@ public class RoomController : MonoBehaviour
     void Update()
     {
         //Fail safe to unlock room
-        if (totalEnemies == 0 && totalLoot == 0 && IsPlayerInRoom() && !isCleared)
+        if (enemiesRemaining == 0 && totalLoot == 0 && IsPlayerInRoom() && !isCleared)
         {
             isCleared = true;
             UnlockRoom();
@@ -201,4 +208,8 @@ public class RoomController : MonoBehaviour
     {
         return playerInRoom;
     }
+
+    public int getTrapCount() { return totalTraps; }
+    public int getStartingEnemyCount() { return startingEnemyCount; }
+    public int getLootCount() { return totalLoot; } 
 }
