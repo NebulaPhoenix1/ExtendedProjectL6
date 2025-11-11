@@ -9,11 +9,11 @@ public class Trap : MonoBehaviour
     public UnityEvent trapPlayerDamageDealt;
     public UnityEvent trapEnemyDamageDealt;
 
-    private RoomController parentRoom;
+    private RoomStats parentRoom;
 
     void Start()
     {
-        parentRoom = GetComponentInParent<RoomController>();
+        parentRoom = GetComponentInParent<RoomStats>();
         if (parentRoom != null)
         {
             trapPlayerDamageDealt.AddListener(() =>
@@ -24,6 +24,10 @@ public class Trap : MonoBehaviour
             {
                 parentRoom.GetComponent<RoomStats>().explorationStats.IncrementTrapsEnemyActivated();
             });
+        }
+        else
+        {
+            Debug.LogWarning("Trap could not find parent RoomStats.");
         }
     }
     private void OnTriggerEnter(Collider other)

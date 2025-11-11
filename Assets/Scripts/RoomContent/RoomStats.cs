@@ -110,7 +110,7 @@ public class RoomStats : MonoBehaviour
         }
         else
         { 
-            roomController.RoomCleared.AddListener(() => StatTracker.Instance.AddRoomStats(this)); 
+            roomController.RoomDataSave.AddListener(() => StatTracker.Instance.AddRoomStats(this)); 
         }
     }
 

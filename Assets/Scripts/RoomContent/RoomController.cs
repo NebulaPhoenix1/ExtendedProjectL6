@@ -10,6 +10,7 @@ public class RoomController : MonoBehaviour
     */
 
     public UnityEvent RoomCleared;
+    public UnityEvent RoomDataSave;
     public UnityEvent RoomDeleted;
 
     private StatTracker statTracker;
@@ -190,6 +191,7 @@ public class RoomController : MonoBehaviour
             playerInRoom = false;
             if(isCleared)
             {
+                RoomDataSave.Invoke();
                 RoomDeleted.Invoke();
             }
         }
