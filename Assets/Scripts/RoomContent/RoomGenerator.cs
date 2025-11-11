@@ -23,14 +23,15 @@ public class RoomGenerator : MonoBehaviour
     //This is a list of unique items. We can use this to track where rooms have already been spawned 
     private HashSet<Vector3> usedPositions = new HashSet<Vector3>();
 
-    //A stack to keep track of rooms for removal later on
-    private Stack<RoomController> spawnedRooms = new Stack<RoomController>();
+    //A queue to keep track of rooms for removal later on
+    private  Queue<RoomController> spawnedRooms = new Queue<RoomController>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //Current room is first pre placed room
         currentRoom = FindObjectsByType<RoomController>(FindObjectsSortMode.None)[0];
+        spawnedRooms.Enqueue(currentRoom);
         InitalRoomsGenerated.AddListener(currentRoom.DetermineDoorSequence);
 
         usedPositions.Add(currentRoomPosition);
@@ -81,18 +82,22 @@ public class RoomGenerator : MonoBehaviour
         currentRoom = instantiatedRoom.GetComponent<RoomController>();
         currentRoom.previousRoom = lastRoom;
 
+        lastRoom.DetermineDoorSequence();
+        currentRoom.DetermineDoorSequence();
+
         //Add current room to spawned rooms queue
-        spawnedRooms.Push(currentRoom);
+        spawnedRooms.Enqueue(currentRoom);
 
     }
     
-    private void RemoveOldestRoom() 
+    public void RemoveOldestRoom() 
     {
         //This will be called after generating a new room 
         //We will remove the oldest room and free that position in the hash set
-        RoomController roomToRemove = spawnedRooms.Pop();
+        RoomController roomToRemove = spawnedRooms.Dequeue();
         usedPositions.Remove(roomToRemove.transform.position);
         Destroy(roomToRemove.gameObject);
+        GenerateRoom();
     }
     
     // Update is called once per frame

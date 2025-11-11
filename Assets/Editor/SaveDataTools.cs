@@ -11,7 +11,7 @@ public class SaveDataTools
         string path = Application.persistentDataPath;
         EditorUtility.RevealInFinder(path);
     }
-    [MenuItem("Tools/Save Data/Print Save File Data")]
+    [MenuItem("Tools/Save Data/Preview Save File Data")]
     static public void DisplaySaveDataFile()
     {
         //Use DisplaySaveJSON window to show save file data

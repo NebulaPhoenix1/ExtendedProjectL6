@@ -10,6 +10,8 @@ public class RoomController : MonoBehaviour
     */
 
     public UnityEvent RoomCleared;
+    public UnityEvent RoomDeleted;
+
     private StatTracker statTracker;
 
     private bool isCleared = false;
@@ -22,8 +24,8 @@ public class RoomController : MonoBehaviour
     [SerializeField] private GameObject doorLeft;
     [SerializeField] private GameObject doorRight;
 
-    private GameObject nextDoor;
-    private GameObject previousDoor;
+    private DoorController nextDoor;
+    private DoorController previousDoor;
 
     //These variables keep track of room contents
     //Each POI has a POIData component which has a POI Data scriptable object assigned to it
@@ -35,6 +37,8 @@ public class RoomController : MonoBehaviour
 
     private GameObject player;
     private bool playerInRoom = false;
+
+    private RoomGenerator roomGenerator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -56,6 +60,11 @@ public class RoomController : MonoBehaviour
             }
 
         });
+        roomGenerator = FindFirstObjectByType<RoomGenerator>();
+        if (roomGenerator != null)
+        {
+            RoomDeleted.AddListener(() => { roomGenerator.RemoveOldestRoom(); });
+        }
     }
 
     public bool getRoomClearStatus()
@@ -73,19 +82,19 @@ public class RoomController : MonoBehaviour
             Vector3 directionToNext = nextRoom.transform.position - currentPos;
             if (directionToNext.z > 0)
             {
-                nextDoor = doorUp;
+                nextDoor = doorUp.GetComponent<DoorController>();
             }
             else if (directionToNext.z < 0)
             {
-                nextDoor = doorDown;
+                nextDoor = doorDown.GetComponent<DoorController>();
             }
             else if (directionToNext.x < 0)
             {
-                nextDoor = doorLeft;
+                nextDoor = doorLeft.GetComponent<DoorController>();
             }
             else if (directionToNext.x > 0)
             {
-                nextDoor = doorRight;
+                nextDoor = doorRight.GetComponent<DoorController>();
             }
             //Disable next door for testing
             //nextDoor.SetActive(false);
@@ -96,19 +105,19 @@ public class RoomController : MonoBehaviour
             Vector3 directionToPrevious = previousRoom.transform.position - currentPos;
             if (directionToPrevious.z > 0)
             {
-                previousDoor = doorUp;
+                previousDoor = doorUp.GetComponent<DoorController>();
             }
             else if (directionToPrevious.z < 0)
             {
-                previousDoor = doorDown;
+                previousDoor = doorDown.GetComponent<DoorController>();
             }
             else if (directionToPrevious.x < 0)
             {
-                previousDoor = doorLeft;
+                previousDoor = doorLeft.GetComponent<DoorController>();
             }
             else if (directionToPrevious.x > 0)
             {
-                previousDoor = doorRight;
+                previousDoor = doorRight.GetComponent<DoorController>();
             }
             //Disable previous door for testing
             //previousDoor.SetActive(false);
@@ -134,12 +143,27 @@ public class RoomController : MonoBehaviour
         //Disable door to next room (This room's next door and the next room's previous door)
         if (nextDoor && nextRoom)
         {
-            nextDoor.SetActive(false);
-            nextRoom.previousDoor.SetActive(false);
+            nextDoor.UnlockDoor();
+            nextRoom.previousDoor.UnlockDoor();
         }
         else { Debug.LogWarning("Next door or next room is null on " + (gameObject.name) + " so room cannot unlock."); }
         RoomCleared.Invoke();
     }
+
+    public void LockPreviousDoor()
+    {
+        if(previousDoor)
+        {
+            previousDoor.LockDoor();
+            return;
+        }
+        else
+        {
+            Debug.LogWarning("RoomController.cs could not lock previous door as it is null." +  gameObject.name);
+            return;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -164,6 +188,10 @@ public class RoomController : MonoBehaviour
         if (other.transform == player.transform)
         {
             playerInRoom = false;
+            if(isCleared)
+            {
+                RoomDeleted.Invoke();
+            }
         }
     }
 
