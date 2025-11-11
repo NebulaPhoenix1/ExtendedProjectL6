@@ -75,23 +75,26 @@ public abstract class BaseEnemy : MonoBehaviour
             if(agent.isOnNavMesh) { agent.isStopped = true; } //Make enemy stand still if we can
             return;
         }
-        //Tick attack cooldown if needed
-        if(currentAttackCooldown > 0f)
+        if (parentRoomController.IsPlayerInRoom()) //Only update enemies if player is in the same room
         {
-            currentAttackCooldown -= Time.deltaTime;
-        }
+            //Tick attack cooldown if needed
+            if (currentAttackCooldown > 0f)
+            {
+                currentAttackCooldown -= Time.deltaTime;
+            }
 
-        //Check if player is in attack range, if so stop moving and attack
-        if(PlayerInAttackRange())
-        {
-            agent.isStopped = true;
-            Attack();
-        }
-        //Else set destination and start moving again
-        else
-        {
-            agent.isStopped=false;
-            agent.SetDestination(playerTransform.position);
+            //Check if player is in attack range, if so stop moving and attack
+            if (PlayerInAttackRange())
+            {
+                agent.isStopped = true;
+                Attack();
+            }
+            //Else set destination and start moving again
+            else
+            {
+                agent.isStopped = false;
+                agent.SetDestination(playerTransform.position);
+            }
         }
     }
 
