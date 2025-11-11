@@ -124,8 +124,8 @@ GameObject:
   - component: {fileID: 6242743401934472357}
   - component: {fileID: 5312495233855652232}
   - component: {fileID: 921596457456059175}
-  - component: {fileID: 2077850854690990059}
   - component: {fileID: 5539818505641419451}
+  - component: {fileID: 330975843908849178}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -250,21 +250,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2077850854690990059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5406728382860342231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a5548c9dd88f52428ec2ecd9f8656dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  playerTransform: {fileID: 0}
-  hitVolume: {fileID: 7119197704097095695}
-  attackDamage: 1
 --- !u!114 &5539818505641419451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,3 +273,20 @@ MonoBehaviour:
   OnHeal:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &330975843908849178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5406728382860342231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9760d429442f7ef4581d8776347edb2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemy
+  playerTransform: {fileID: 0}
+  attackCooldown: 2
+  attackDamage: 1
+  hitVolume: {fileID: 7119197704097095695}
+  attackRange: 2
