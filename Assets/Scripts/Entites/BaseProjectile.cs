@@ -32,5 +32,6 @@ public abstract class BaseProjectile : MonoBehaviour
     {
         Debug.Log("Collision Entered");
         Destroy(this.gameObject);
+        Debug.Log("Destroyed Projectile");
     }
 }

@@ -42,7 +42,7 @@ public class RangedEnemy : BaseEnemy
                 FleeFromPlayer();
             }
             //Chase if out of range
-            if(distToPlayer > attackRange)
+            else if(distToPlayer > attackRange)
             {
                 agent.isStopped = false;
                 agent.SetDestination(playerTransform.position);
