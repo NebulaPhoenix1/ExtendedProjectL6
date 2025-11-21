@@ -9,6 +9,7 @@ public class RangedEnemy : BaseEnemy
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float attackRange = 10f;
     [SerializeField] private float minimumRange = 2f;
+    [SerializeField] private float forwardOffset = 0.5f;
 
     protected override void Start()
     {
@@ -57,7 +58,6 @@ public class RangedEnemy : BaseEnemy
                 }
             }
         }
-
     }
 
     protected override bool PlayerInAttackRange()
@@ -86,7 +86,9 @@ public class RangedEnemy : BaseEnemy
     {
         if(currentAttackCooldown > 0) { return;  } //Attack on cooldown we must wait
         currentAttackCooldown = attackCooldown;
-        GameObject newProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
+        Vector3 spawnPoint = transform.position + (transform.forward * forwardOffset);
+        GameObject newProjectile = Instantiate(projectile, spawnPoint, Quaternion.identity);
+        Debug.Log("Spawned Projectile at: " + spawnPoint + " Enemy Pos:" + transform.position);
         Vector3 direction = (playerTransform.position - transform.position).normalized;
         //Set projectile velocity
         Rigidbody rb = newProjectile.GetComponent<Rigidbody>();

@@ -292,3 +292,4 @@ MonoBehaviour:
   projectileSpeed: 2
   attackRange: 10
   minimumRange: 2
+  forwardOffset: 10
