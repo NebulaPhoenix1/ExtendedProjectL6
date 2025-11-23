@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7324249519566495662}
   - component: {fileID: 2371593850198919003}
   - component: {fileID: 7119197704097095695}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 921596457456059175}
   - component: {fileID: 5539818505641419451}
   - component: {fileID: 4024783618482408669}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RangedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -287,13 +287,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
   playerTransform: {fileID: 0}
-  attackCooldown: 0.3
+  attackCooldown: 1
   attackDamage: 1
   projectile: {fileID: 4388222678377947303, guid: 25c492af3c94f40fc83f9d79a13865f9, type: 3}
-  projectileSpeed: 2
+  projectileSpeed: 5
   attackRange: 12
   minimumRange: 4
   projectileSpawnPoint: {fileID: 276379789453909488}
+  lineOfSightExclusion:
+    serializedVersion: 2
+    m_Bits: 64
+  maxAttackAngle: 10
 --- !u!1 &7843834061853782519
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,9 +307,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 276379789453909488}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Projectile Spawn Point
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -5,7 +5,7 @@ public abstract class BaseProjectile : MonoBehaviour
 {
     [Header("Basic Projectile Values")]
     [SerializeField] protected int dmgAmount;
-    [SerializeField] protected float projectileLifeTime = 10f;
+    protected float projectileLifeTime = 10f; //For some reason if this is serialized but set in inspector it defaults to 0?
     protected Rigidbody rb;
     protected BoxCollider box;
     protected float awakeTime;
@@ -30,8 +30,9 @@ public abstract class BaseProjectile : MonoBehaviour
     //And if that same game object has a health component we should deal damage (this will be done in SimpleStraightProjectile.cs)
 
     // Update is called once per frame
-    protected virtual void OnCollisionEnter(Collision collison)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
+        Debug.Log($"Projectile hit: {collision.gameObject.name} (Tag: {collision.gameObject.tag})");
         Debug.Log("Collision Entered");
         Destroy(this.gameObject);
         Debug.Log("Destroyed Projectile");
@@ -46,6 +47,7 @@ public abstract class BaseProjectile : MonoBehaviour
         }
         else
         {
+            Debug.Log("Projectile despawned:" + awakeTime + ":" + projectileLifeTime);
             Destroy(this.gameObject);
         }
     }

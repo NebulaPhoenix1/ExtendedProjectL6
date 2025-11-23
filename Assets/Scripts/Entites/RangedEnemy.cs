@@ -1,15 +1,18 @@
 using NUnit.Framework;
+using System.Collections.Specialized;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangedEnemy : BaseEnemy
 {
-    [Header("Melee Specific Values")]
+    [Header("Ranged Specific Values")]
     [SerializeField] private GameObject projectile;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float attackRange = 10f;
     [SerializeField] private float minimumRange = 2f;
     [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private LayerMask lineOfSightExclusion; 
+    [SerializeField] private float maxAttackAngle = 10f; 
 
     protected override void Start()
     {
@@ -18,6 +21,7 @@ public class RangedEnemy : BaseEnemy
         {
             health.OnDeath.AddListener(() => parentRoomController.GetComponent<RoomStats>().combatStats.IncrementRangedEnemiesDefeated());
         }
+        if(lineOfSightExclusion == 0) { Debug.LogWarning(name + " LayerMask not set. Enemy may block their own LOS."); }
     }
 
     protected override void Update()
@@ -46,15 +50,20 @@ public class RangedEnemy : BaseEnemy
             else if(distToPlayer > attackRange)
             {
                 agent.isStopped = false;
+                agent.updateRotation = true; //NavMesh can handle rotate while running
                 agent.SetDestination(playerTransform.position);
                 return;
             }
             //Attack if within range
-            else if(currentAttackCooldown <= 0)
+            else
             {
+                //Stop moving while firing
+                agent.isStopped = true; 
+                agent.updateRotation = false;
+
                 FacePlayer();
                 agent.isStopped = true;
-                if(PlayerInAttackRange())
+                if(IsFacingPlayer() && PlayerInAttackRange())
                 {
                     Attack();
                 }
@@ -63,50 +72,69 @@ public class RangedEnemy : BaseEnemy
         }
     }
 
+
+    //If player is within max and minimum attack range with successful LOS check, return true
+    //Else, we need to flee away from the player until we are within the ranged enemy range
     protected override bool PlayerInAttackRange()
     {
-        Debug.Log("Player in range check");
+        //Debug.Log("Player in range check");
         if(playerTransform == null) { return false; } 
-        //If player is greater than minimum distance away from player, return true
-        //Else, we need to flee away from the player until we are within the ranged enemy range.
-        
-        float distance = Vector3.Distance(transform.position, playerTransform.position);
-        //Raycast to see if we will shoot a wall
-        RaycastHit hit;
-        Vector3 direction = (playerTransform.position - transform.position).normalized;
 
-        if(Physics.Raycast(transform.position, direction, out hit, attackRange))
+        float distance = Vector3.Distance(transform.position, playerTransform.position);
+
+        //Check to see if distance is within attack ranges, if not just return
+        if(distance < minimumRange || distance > attackRange) { return false; }
+
+        //Raycast to see if we will shoot a wall
+        Vector3 raycastOrigin = projectileSpawnPoint.position;
+        Vector3 raycastTarget = playerTransform.position;
+        Vector3 raycastDirction = (raycastTarget - raycastOrigin).normalized;
+        RaycastHit hit;
+
+        
+
+        if(Physics.Raycast(raycastOrigin, raycastDirction, out hit, attackRange, lineOfSightExclusion))
         {
             if(hit.transform != playerTransform)
             {
-                Debug.Log("Player not in range");
+                //Debug.Log("Player not in range");
                 return false; //Hit a wall
             }
         }
-        //If within optimial range, return true
-        return distance <= attackRange && distance >= minimumRange;
+        return true;
     }
 
     protected override void Attack()
     {
         if(currentAttackCooldown > 0) { return;  } //Attack on cooldown we must wait
         currentAttackCooldown = attackCooldown;
-        GameObject newProjectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
-        Debug.Log("Spawned Projectile at: " + projectileSpawnPoint.position + " Enemy Pos:" + transform.position);
-        Vector3 direction = (playerTransform.position - transform.position).normalized;
+
+        Vector3 vectorToPlayer = playerTransform.position - projectileSpawnPoint.position;
+        Vector3 direction = vectorToPlayer.normalized;
+        //Calculate rotation
+        Quaternion bulletRotation = Quaternion.LookRotation(direction);
+        //Create projectile
+        GameObject newProjectile = Instantiate(projectile, projectileSpawnPoint.position, bulletRotation);
+        
+        //Ignore collisions between projetile parent and parent
+        Collider enemyCollider = GetComponent<Collider>();
+        Collider projectileCollider = newProjectile.GetComponent<Collider>();
+        if (enemyCollider != null && projectileCollider != null)
+        {
+            Physics.IgnoreCollision(enemyCollider, projectileCollider);
+        }
+
         //Set projectile velocity
         Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
         if(rb != null)
         {
             rb.linearVelocity = direction * projectileSpeed;
-            //Make projectile face target
-            newProjectile.transform.forward = direction;
         }
         else
         {
             Debug.LogWarning("Projectile prefab has no Rigid Body component");
         }
-        Debug.Log("Attacked");
+        //Debug.Log("Attacked");
     }
 
     private void FacePlayer()
@@ -114,15 +142,23 @@ public class RangedEnemy : BaseEnemy
         Vector3 direction = (playerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        Debug.Log("Facing player");
+        //Debug.Log("Facing player");
     }
 
     private void FleeFromPlayer()
     {
         agent.isStopped = false;
+        agent.updateRotation = true;
         Vector3 directionToPlayer = transform.position - playerTransform.position;
         Vector3 newPosition = transform.position + directionToPlayer.normalized * minimumRange; //Move Away
         agent.SetDestination(newPosition);
-        Debug.Log("Fleeing");
+        //Debug.Log("Fleeing");
+    }
+
+    //Return true/false if the player is within MaxAttackAngle degrees of player
+    private bool IsFacingPlayer()
+    {
+        Vector3 directionToPlayyer = (playerTransform.position - transform.position).normalized;
+        return Vector3.Angle(transform.forward, directionToPlayyer) < maxAttackAngle;
     }
 }
