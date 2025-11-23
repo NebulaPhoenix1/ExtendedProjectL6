@@ -32,10 +32,10 @@ public abstract class BaseProjectile : MonoBehaviour
     // Update is called once per frame
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"Projectile hit: {collision.gameObject.name} (Tag: {collision.gameObject.tag})");
+        //Debug.Log($"Projectile hit: {collision.gameObject.name} (Tag: {collision.gameObject.tag})");
         Debug.Log("Collision Entered");
         Destroy(this.gameObject);
-        Debug.Log("Destroyed Projectile");
+        //Debug.Log("Destroyed Projectile");
     }
 
     void Update()
@@ -47,7 +47,7 @@ public abstract class BaseProjectile : MonoBehaviour
         }
         else
         {
-            Debug.Log("Projectile despawned:" + awakeTime + ":" + projectileLifeTime);
+            //Debug.Log("Projectile despawned:" + awakeTime + ":" + projectileLifeTime);
             Destroy(this.gameObject);
         }
     }
