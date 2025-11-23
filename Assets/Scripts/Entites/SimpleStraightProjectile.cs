@@ -26,7 +26,10 @@ public class SimpleStraightProjectile : BaseProjectile
                 else {Debug.Log("Projectile: " + gameObject.name + " cannot deal 0 damage/healing."); }
             }
         }
-        //Regardless, then call base functionality
-        base.OnCollisionEnter(collision);
+        //Then call base functionality IF projectile does not hit an enemy
+        if(!collision.gameObject.CompareTag("Enemy"))
+        {
+            base.OnCollisionEnter(collision);
+        }
     }
 }

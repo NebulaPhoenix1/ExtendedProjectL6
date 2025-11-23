@@ -5,8 +5,10 @@ public abstract class BaseProjectile : MonoBehaviour
 {
     [Header("Basic Projectile Values")]
     [SerializeField] protected int dmgAmount;
+    [SerializeField] protected float projectileLifeTime = 10f;
     protected Rigidbody rb;
     protected BoxCollider box;
+    protected float awakeTime;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,5 +35,18 @@ public abstract class BaseProjectile : MonoBehaviour
         Debug.Log("Collision Entered");
         Destroy(this.gameObject);
         Debug.Log("Destroyed Projectile");
+    }
+
+    void Update()
+    {
+        //Tick projectile life time, and ensure projectiles are destroyed after a certain amount of time
+        if(awakeTime <= projectileLifeTime)
+        {
+            awakeTime += Time.deltaTime;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

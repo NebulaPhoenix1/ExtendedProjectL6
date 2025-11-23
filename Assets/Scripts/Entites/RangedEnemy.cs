@@ -9,7 +9,7 @@ public class RangedEnemy : BaseEnemy
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float attackRange = 10f;
     [SerializeField] private float minimumRange = 2f;
-    [SerializeField] private float forwardOffset = 0.5f;
+    [SerializeField] private Transform projectileSpawnPoint;
 
     protected override void Start()
     {
@@ -40,15 +40,17 @@ public class RangedEnemy : BaseEnemy
             if(distToPlayer < minimumRange)
             {
                 FleeFromPlayer();
+                return;
             }
             //Chase if out of range
             else if(distToPlayer > attackRange)
             {
                 agent.isStopped = false;
                 agent.SetDestination(playerTransform.position);
+                return;
             }
             //Attack if within range
-            else
+            else if(currentAttackCooldown <= 0)
             {
                 FacePlayer();
                 agent.isStopped = true;
@@ -56,12 +58,14 @@ public class RangedEnemy : BaseEnemy
                 {
                     Attack();
                 }
+                return;
             }
         }
     }
 
     protected override bool PlayerInAttackRange()
     {
+        Debug.Log("Player in range check");
         if(playerTransform == null) { return false; } 
         //If player is greater than minimum distance away from player, return true
         //Else, we need to flee away from the player until we are within the ranged enemy range.
@@ -75,6 +79,7 @@ public class RangedEnemy : BaseEnemy
         {
             if(hit.transform != playerTransform)
             {
+                Debug.Log("Player not in range");
                 return false; //Hit a wall
             }
         }
@@ -86,9 +91,8 @@ public class RangedEnemy : BaseEnemy
     {
         if(currentAttackCooldown > 0) { return;  } //Attack on cooldown we must wait
         currentAttackCooldown = attackCooldown;
-        Vector3 spawnPoint = transform.position + (transform.forward * forwardOffset);
-        GameObject newProjectile = Instantiate(projectile, spawnPoint, Quaternion.identity);
-        Debug.Log("Spawned Projectile at: " + spawnPoint + " Enemy Pos:" + transform.position);
+        GameObject newProjectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
+        Debug.Log("Spawned Projectile at: " + projectileSpawnPoint.position + " Enemy Pos:" + transform.position);
         Vector3 direction = (playerTransform.position - transform.position).normalized;
         //Set projectile velocity
         Rigidbody rb = newProjectile.GetComponent<Rigidbody>();
@@ -102,6 +106,7 @@ public class RangedEnemy : BaseEnemy
         {
             Debug.LogWarning("Projectile prefab has no Rigid Body component");
         }
+        Debug.Log("Attacked");
     }
 
     private void FacePlayer()
@@ -109,6 +114,7 @@ public class RangedEnemy : BaseEnemy
         Vector3 direction = (playerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        Debug.Log("Facing player");
     }
 
     private void FleeFromPlayer()
@@ -117,5 +123,6 @@ public class RangedEnemy : BaseEnemy
         Vector3 directionToPlayer = transform.position - playerTransform.position;
         Vector3 newPosition = transform.position + directionToPlayer.normalized * minimumRange; //Move Away
         agent.SetDestination(newPosition);
+        Debug.Log("Fleeing");
     }
 }

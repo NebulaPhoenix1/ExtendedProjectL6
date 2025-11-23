@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 4024783618482408669}
   m_Layer: 0
   m_Name: RangedEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,6 +147,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3656871836689351077}
+  - {fileID: 276379789453909488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7170909283200288956
@@ -286,10 +287,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
   playerTransform: {fileID: 0}
-  attackCooldown: 2
+  attackCooldown: 0.3
   attackDamage: 1
   projectile: {fileID: 4388222678377947303, guid: 25c492af3c94f40fc83f9d79a13865f9, type: 3}
   projectileSpeed: 2
-  attackRange: 10
-  minimumRange: 2
-  forwardOffset: 10
+  attackRange: 12
+  minimumRange: 4
+  projectileSpawnPoint: {fileID: 276379789453909488}
+--- !u!1 &7843834061853782519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 276379789453909488}
+  m_Layer: 0
+  m_Name: Projectile Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &276379789453909488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7843834061853782519}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.00001001358, y: 0, z: 0.685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5004238474832934175}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
