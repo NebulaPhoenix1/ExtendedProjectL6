@@ -123,9 +123,9 @@ public class RoomStats : MonoBehaviour
         else
         {
             //Set room contents stats just before we add the room stats to the stat tracker
-            roomController.RoomDataSave.AddListener(() => roomContents.SetEnemyCount(roomController.getStartingEnemyCount()));
-            roomController.RoomDataSave.AddListener(() => roomContents.SetTrapCount(roomController.getTrapCount()));
-            roomController.RoomDataSave.AddListener(() => roomContents.SetLootCount(roomController.getLootCount()));
+            roomController.RoomDataSave.AddListener(() => roomContents.SetEnemyCount(roomController.GetStartingEnemyCount()));
+            roomController.RoomDataSave.AddListener(() => roomContents.SetTrapCount(roomController.GetTrapCount()));
+            roomController.RoomDataSave.AddListener(() => roomContents.SetLootCount(roomController.GetLootCount()));
             roomController.RoomDataSave.AddListener(() => StatTracker.Instance.AddRoomStats(this));
         }
     }
@@ -133,7 +133,7 @@ public class RoomStats : MonoBehaviour
     void Update()
     {
         //Update time in room is not cleared and player is in the room
-        if(!roomController.getRoomClearStatus() && roomController.IsPlayerInRoom())
+        if(!roomController.GetRoomClearStatus() && roomController.IsPlayerInRoom())
         {
             explorationStats.AddTimeSpent(Time.deltaTime);
         }

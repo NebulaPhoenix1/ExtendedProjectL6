@@ -28,11 +28,6 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
-    public int GetHealth()
-    {
-        return health;
-    }
-
     //Takes a uint for DMG amount to ensure we never get negative damage (healing)
     public void TakeDamage(uint dmgAmount)
     {
@@ -77,22 +72,22 @@ public class Health : MonoBehaviour
         Debug.Log(gameObject.name + " is no longer invincible.");
     }
 
-    public int getLastHealAmount()
+    public int GetLastHealAmount()
     {
         return lastHealAmount;
     }
 
-    public int getLastDamageAmount()
+    public int GetLastDamageAmount()
     {
         return lastDamageAmount;
     }
 
-    public int getHealth()
+    public int GetHealth()
     {
         return health;
     }
 
-    public int getMaxHealth()
+    public int GetMaxHealth()
     {
         return maxHealth;
     }

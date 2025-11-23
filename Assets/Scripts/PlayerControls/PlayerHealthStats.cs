@@ -34,14 +34,14 @@ public class PlayerHealthStats : MonoBehaviour
     private void OnPlayerHealed()
     {
         currentRoom = playerAttack.currentRoomStats;
-        currentRoom.playerStats.AddHealingDone((uint)playerHealth.getLastHealAmount());
+        currentRoom.playerStats.AddHealingDone((uint)playerHealth.GetLastHealAmount());
         
     }
 
     private void OnPlayerDamaged()
     {
         currentRoom = playerAttack.currentRoomStats;
-        currentRoom.playerStats.AddDamageTaken((uint)playerHealth.getLastDamageAmount());
+        currentRoom.playerStats.AddDamageTaken((uint)playerHealth.GetLastDamageAmount());
         
     }
 }

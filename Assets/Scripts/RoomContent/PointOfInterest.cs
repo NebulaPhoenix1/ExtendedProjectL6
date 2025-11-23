@@ -20,7 +20,7 @@ public class PointOfInterest : MonoBehaviour
             }
             else
             {
-                parentRoom.updateRoomStartingDataCount(pointOfInterestData.numberOfEnemies,
+                parentRoom.UpdateRoomStartingDataCount(pointOfInterestData.numberOfEnemies,
                                               pointOfInterestData.isTrapPOI ? 1 : 0,
                                               pointOfInterestData.isLootPOI ? 1 : 0);
             }

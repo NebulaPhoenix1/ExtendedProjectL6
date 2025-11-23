@@ -18,6 +18,7 @@ public class RoomGenerator : MonoBehaviour
     private RoomController currentRoom;
     private RoomController lastRoom;
     private GameObject instantiatedRoom;
+    
     public UnityEvent InitalRoomsGenerated;
 
     //This is a list of unique items. We can use this to track where rooms have already been spawned 

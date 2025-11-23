@@ -69,7 +69,7 @@ public class RoomController : MonoBehaviour
         }
     }
 
-    public bool getRoomClearStatus()
+    public bool GetRoomClearStatus()
     {
         return isCleared;
     }
@@ -127,7 +127,7 @@ public class RoomController : MonoBehaviour
     }
 
     // Function to update room content counts, this should be called by POI spawners
-    public void updateRoomStartingDataCount(int enemies, int traps, int loot)
+    public void UpdateRoomStartingDataCount(int enemies, int traps, int loot)
     {
         enemiesRemaining += enemies;
         startingEnemyCount += enemies;
@@ -209,7 +209,7 @@ public class RoomController : MonoBehaviour
         return playerInRoom;
     }
 
-    public int getTrapCount() { return totalTraps; }
-    public int getStartingEnemyCount() { return startingEnemyCount; }
-    public int getLootCount() { return totalLoot; } 
+    public int GetTrapCount() { return totalTraps; }
+    public int GetStartingEnemyCount() { return startingEnemyCount; }
+    public int GetLootCount() { return totalLoot; } 
 }

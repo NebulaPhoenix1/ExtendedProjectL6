@@ -12,15 +12,15 @@ public class PlayerHealthHUD : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         healthText = GetComponent<TMP_Text>();
-        int maxHealth = player.GetComponent<Health>().getMaxHealth();
-        int currentHealth = player.GetComponent<Health>().getHealth();
+        int maxHealth = player.GetComponent<Health>().GetMaxHealth();
+        int currentHealth = player.GetComponent<Health>().GetHealth();
         healthText.text = "Health: " + maxHealth + " / " + maxHealth;
     }
 
     public void UpdateHealthDisplay()
     {
-        int maxHealth = player.GetComponent<Health>().getMaxHealth();
-        int currentHealth = player.GetComponent<Health>().getHealth();
+        int maxHealth = player.GetComponent<Health>().GetMaxHealth();
+        int currentHealth = player.GetComponent<Health>().GetHealth();
         healthText.text = "Health: " + currentHealth + " / " + maxHealth;
     }
 }
