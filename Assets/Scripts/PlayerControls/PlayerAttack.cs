@@ -16,6 +16,11 @@ public class PlayerAttack : MonoBehaviour
     public UnityEvent OnAttack;
     public UnityEvent OnAttackHit;
 
+    //Effects
+    [SerializeField] private GameObject slashEffect;
+    [SerializeField] private Transform slashSpawnPoint;
+    [SerializeField] private float slashEffectDestructionTime;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -51,6 +56,9 @@ public class PlayerAttack : MonoBehaviour
     {
         //Reset hit tracking variables
         totalDamage = 0;
+        //Fancy effects
+        GameObject slashInstance = Instantiate(slashEffect, slashSpawnPoint.position, slashSpawnPoint.rotation);
+        Destroy(slashInstance, slashEffectDestructionTime);
         //For all entities (excl. player) in the hit detection volume, apply damage
         Collider[] hitColliders = Physics.OverlapBox(hitDetectionVolume.bounds.center, hitDetectionVolume.bounds.extents, hitDetectionVolume.transform.rotation);
         foreach (Collider collider in hitColliders)
