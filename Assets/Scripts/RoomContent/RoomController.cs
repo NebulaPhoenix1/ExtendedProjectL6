@@ -41,6 +41,7 @@ public class RoomController : MonoBehaviour
     private bool playerInRoom = false;
 
     private RoomGenerator roomGenerator;
+    private OutOfBounds outOfBounds;
 
     //All POI spawners in this room, we call PointOfInterestSpawner.SpawnPOI() for each POI in the next room on room cleared
     [SerializeField] private PointOfInterestSpawner[] pointsOfInterest;
@@ -52,6 +53,11 @@ public class RoomController : MonoBehaviour
     {
         statTracker = StatTracker.Instance;
         player = GameObject.FindGameObjectWithTag("Player");
+        outOfBounds = FindFirstObjectByType<OutOfBounds>();
+        if(!outOfBounds)
+        {
+            Debug.LogWarning("RoomController.cs could not find OutOfBounds.cs in the scene.");
+        }
 
         //Update player current room stats on room cleared when Unity Event is fired
         RoomCleared.AddListener(() =>
@@ -67,6 +73,10 @@ public class RoomController : MonoBehaviour
                     foreach (var poiSpawner in nextRoom.pointsOfInterest)
                     {
                         poiSpawner.SpawnPOI();
+                    }
+                    if(outOfBounds != null)
+                    {
+                        outOfBounds.UpdateCurrentRoom();
                     }
                 }
             }
