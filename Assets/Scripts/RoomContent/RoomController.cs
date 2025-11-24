@@ -42,6 +42,11 @@ public class RoomController : MonoBehaviour
 
     private RoomGenerator roomGenerator;
 
+    //All POI spawners in this room, we call PointOfInterestSpawner.SpawnPOI() for each POI in the next room on room cleared
+    [SerializeField] private PointOfInterestSpawner[] pointsOfInterest;
+    //Flag for if the room is the very first room
+    [SerializeField] private bool isStartingRoom = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -58,6 +63,11 @@ public class RoomController : MonoBehaviour
                 {
                     playerAttack.currentRoomStats = nextRoom.GetComponent<RoomStats>();
                     Debug.Log("Player stats current room updated!");
+                    //Spawn POIs in the next room
+                    foreach (var poiSpawner in nextRoom.pointsOfInterest)
+                    {
+                        poiSpawner.SpawnPOI();
+                    }
                 }
             }
 
@@ -66,6 +76,15 @@ public class RoomController : MonoBehaviour
         if (roomGenerator != null)
         {
             RoomDeleted.AddListener(() => { roomGenerator.RemoveOldestRoom(); });
+        }
+
+        //Spawn POIs for starting room
+        if(isStartingRoom)
+        {
+            foreach (var poiSpawner in pointsOfInterest)
+            {
+                poiSpawner.SpawnPOI();
+            }
         }
     }
 
