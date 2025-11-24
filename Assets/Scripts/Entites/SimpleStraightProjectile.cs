@@ -17,7 +17,7 @@ public class SimpleStraightProjectile : BaseProjectile
             {
                 if(dmgAmount > 0)
                 {
-                    health.TakeDamage((uint)dmgAmount);
+                    health.TakeRangedDamage((uint)dmgAmount);
                 }
                 else if (dmgAmount < 0)
                 {

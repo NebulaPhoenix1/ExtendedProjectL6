@@ -5,16 +5,26 @@ using UnityEngine.Events;
 public class PlayerStats
 {
     [SerializeField] private int healingDone; //Total healing done by the player
-    [SerializeField] private int damageTaken; //Total damage taken by the player
+    [SerializeField] private int meleeDamageTaken; //Total melee damage taken by the player
+    [SerializeField] private int rangedDamageTaken; //Total ranged damage taken by the player
+    [SerializeField] private int trapDamageTaken; //Total trap damage taken by the player
     [SerializeField] private int deathCount; //How many times the player has died
 
     public void AddHealingDone(uint amount)
     {
         healingDone += (int)amount;
     }
-    public void AddDamageTaken(uint amount)
+    public void AddMeleeDamageTaken(uint amount)
     {
-        damageTaken += (int)amount;
+        meleeDamageTaken += (int)amount;
+    }
+    public void AddRangedDamageTaken(uint amount)
+    {
+        rangedDamageTaken += (int)amount;
+    }
+    public void AddTrapDamageTaken(uint amount)
+    {
+        trapDamageTaken += (int)amount;
     }
     public void IncrementDeathCount()
     {

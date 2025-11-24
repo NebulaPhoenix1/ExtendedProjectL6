@@ -35,7 +35,7 @@ public class MeleeEnemy : BaseEnemy
             {
                 if (collider.gameObject.CompareTag("Player") && collider.gameObject.TryGetComponent<Health>(out Health playerHealth))
                 {
-                    playerHealth.TakeDamage((uint)attackDamage);
+                    playerHealth.TakeMeleeDamage((uint)attackDamage);
                 }
             }
         }

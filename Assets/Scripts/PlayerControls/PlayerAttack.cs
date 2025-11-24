@@ -65,7 +65,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (collider.gameObject != this.gameObject && collider.TryGetComponent<Health>(out Health entityHealth))
             {
-                entityHealth.TakeDamage(attackDamage);
+                entityHealth.TakeMeleeDamage(attackDamage);
                 totalDamage += attackDamage;
             }
         }

@@ -58,7 +58,7 @@ public class Trap : MonoBehaviour
 
     private void DealDamage(GameObject target, Health targetHealth)
     {
-        targetHealth.TakeDamage(damageAmount);
+        targetHealth.TakeTrapDamage(damageAmount);
         nextDamageTimes[target] = Time.time + damageTickDelay;
         if(target.CompareTag("Player"))
         {
