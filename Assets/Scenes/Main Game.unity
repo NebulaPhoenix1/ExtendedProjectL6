@@ -1214,6 +1214,18 @@ PrefabInstance:
       propertyPath: isStartingRoom
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7436932077022739372, guid: e59d6094d2707f64fa74885d2f8ea611, type: 3}
+      propertyPath: m_Carve
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7436932077022739372, guid: e59d6094d2707f64fa74885d2f8ea611, type: 3}
+      propertyPath: m_MoveThreshold
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7436932077022739372, guid: e59d6094d2707f64fa74885d2f8ea611, type: 3}
+      propertyPath: m_TimeToStationary
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7926269031002049831, guid: e59d6094d2707f64fa74885d2f8ea611, type: 3}
       propertyPath: m_Enabled
       value: 1
