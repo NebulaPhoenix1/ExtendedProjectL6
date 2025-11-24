@@ -24,6 +24,8 @@ public abstract class BaseProjectile : MonoBehaviour
             box = this.gameObject.AddComponent<BoxCollider>();
             Debug.LogWarning("Projectile: "  + gameObject.name + " has defaulted box collider. Behaviour may not be as expected!");   
         }
+        Physics.IgnoreLayerCollision(gameObject.layer, gameObject.layer); //Ignore collisions with other projectiles of same type
+        Physics.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemy")); //Ignore collisions with enemies
     }
 
     //When the projectile hits any game object with a collider it should be destroyed
@@ -33,7 +35,7 @@ public abstract class BaseProjectile : MonoBehaviour
     protected virtual void OnCollisionEnter(Collision collision)
     {
         //Debug.Log($"Projectile hit: {collision.gameObject.name} (Tag: {collision.gameObject.tag})");
-        Debug.Log("Collision Entered");
+        //Debug.Log("Collision Entered");
         Destroy(this.gameObject);
         //Debug.Log("Destroyed Projectile");
     }
