@@ -4,7 +4,7 @@
             "_division": 15,
             "_maxValue": 20,
             "_guid": "24cfd95c-7cc8-4325-92be-d6f6b60d86e7",
-            "_name": "time",
+            "_name": "timeTaken",
             "_value": 0.0,
             "trapezoids": [
                 {
