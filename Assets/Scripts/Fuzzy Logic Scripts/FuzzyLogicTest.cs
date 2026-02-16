@@ -48,8 +48,12 @@ public class FuzzyLogicTest : MonoBehaviour
         if (fuzzification != null)
         {
             fuzzification.value = time;
-            float rating = fuzzyLogic.Output();
+            float rating = fuzzyLogic.Output() * 100; //100 is the max value so we multiply by it
             Debug.Log($"<color=cyan>Fuzzy Logic Rating (Time: {time}):</color> <b>{rating}</b>");
+            float goodRating = fuzzyLogic.GetInferenceByName("Good Output").Output();
+            float badRating = fuzzyLogic.GetInferenceByName("Bad Output").Output();
+            Debug.Log($"<color=green>Good Rating:</color> <b>{goodRating}</b>");
+            Debug.Log($"<color=red>Bad Rating:</color> <b>{badRating}</b>");
         }
         else
         {
