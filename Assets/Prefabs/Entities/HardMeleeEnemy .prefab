@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 330975843908849178}
   - component: {fileID: 970270545583061040}
   m_Layer: 6
-  m_Name: MeleeEnemy
+  m_Name: 'HardMeleeEnemy '
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,21 +268,15 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  OnDamageTaken:
+  OnMeleeDamageTaken:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 970270545583061040}
-        m_TargetAssemblyTypeName: DamageEffect, Assembly-CSharp
-        m_MethodName: PlayDamageEffect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  OnRangedDamageTaken:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTrapDamageTaken:
+    m_PersistentCalls:
+      m_Calls: []
   OnHeal:
     m_PersistentCalls:
       m_Calls: []
@@ -299,8 +293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemy
   playerTransform: {fileID: 0}
-  attackCooldown: 2
-  attackDamage: 1
+  attackCooldown: 1.5
+  attackDamage: 2
   hitVolume: {fileID: 7119197704097095695}
   attackRange: 2
 --- !u!114 &970270545583061040
