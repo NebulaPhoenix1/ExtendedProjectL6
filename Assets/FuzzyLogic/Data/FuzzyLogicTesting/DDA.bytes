@@ -1,4 +1,4 @@
-«Íï4Vx{
+ï¿½ï¿½ï¿½4Vxï¿½{
     "fuzzifications": [
         {
             "_division": 15,
@@ -94,6 +94,6 @@
             "_op": 4
         }
     ],
-    "_guid": "22b7753c-ec19-45cb-a808-118ae109b37e",
-    "_name": "timeLogic"
+    "_guid": "e46a5da3-041d-4e6a-b1ed-97b6afa32bac",
+    "_name": "DDA"
 }
