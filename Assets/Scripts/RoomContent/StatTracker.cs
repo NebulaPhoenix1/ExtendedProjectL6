@@ -23,7 +23,7 @@ public class StatTracker : MonoBehaviour
     public static StatTracker Instance { get; private set; }
 
     private Queue<RoomStatsData> recentRoomStats = new Queue<RoomStatsData>();
-    [SerializeField] private int maxRecentRooms = 3;
+    [SerializeField] private int maxRecentRooms = 10;
 
     private int roomsExplored = 0;
     private string pathToSaveFile;

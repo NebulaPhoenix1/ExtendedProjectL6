@@ -1,0 +1,99 @@
+´ÕÔ4Vxê{
+    "fuzzifications": [
+        {
+            "_division": 15,
+            "_maxValue": 20,
+            "_guid": "24cfd95c-7cc8-4325-92be-d6f6b60d86e7",
+            "_name": "timeTaken",
+            "_value": 0.9599999785423279,
+            "trapezoids": [
+                {
+                    "_guid": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
+                    "_color": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "_name": "quick",
+                    "_peakPointLeftValue": 0.0,
+                    "_footPointLeftValue": 0.0,
+                    "_peakPointRightValue": 1.3636369705200196,
+                    "_footPointRightValue": 20.0
+                },
+                {
+                    "_guid": "bb7e9c46-5499-4065-93ef-f75bbed5ee07",
+                    "_color": {
+                        "r": 0.0,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "_name": "slow",
+                    "_peakPointLeftValue": 20.0,
+                    "_footPointLeftValue": 1.3636369705200196,
+                    "_peakPointRightValue": 20.0,
+                    "_footPointRightValue": 20.0
+                }
+            ]
+        }
+    ],
+    "_defuzzitication": {
+        "_division": 10,
+        "_maxValue": 100,
+        "_guid": "0f814b84-a3c5-44d7-bd39-b162ae3ab63f",
+        "_name": "Ranking",
+        "_value": 0.0,
+        "trapezoids": [
+            {
+                "_guid": "949f005e-0aaa-4392-b493-2e1fc69356d3",
+                "_color": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 1.0
+                },
+                "_name": "Good Rating",
+                "_peakPointLeftValue": 0.0,
+                "_footPointLeftValue": -50.0,
+                "_peakPointRightValue": 0.0,
+                "_footPointRightValue": 100.44345092773438
+            },
+            {
+                "_guid": "04ae3bcd-f810-401b-8df0-daa03ef237f8",
+                "_color": {
+                    "r": 0.0,
+                    "g": 1.0,
+                    "b": 0.0,
+                    "a": 1.0
+                },
+                "_name": "Bad",
+                "_peakPointLeftValue": 100.0,
+                "_footPointLeftValue": 0.0,
+                "_peakPointRightValue": 100.0,
+                "_footPointRightValue": 150.0
+            }
+        ],
+        "_subdivision": 25
+    },
+    "inferences": [
+        {
+            "_guid": "35ac76b0-8505-484b-818f-dca41e7bba87",
+            "_name": "Good Output",
+            "_leftSideInputGUID": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
+            "_rightSideInputGUID": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
+            "_outputGUID": "949f005e-0aaa-4392-b493-2e1fc69356d3",
+            "_op": 4
+        },
+        {
+            "_guid": "3d181e76-77bf-4b47-b5d0-d07804541ed7",
+            "_name": "Bad Output",
+            "_leftSideInputGUID": "bb7e9c46-5499-4065-93ef-f75bbed5ee07",
+            "_rightSideInputGUID": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
+            "_outputGUID": "3d181e76-77bf-4b47-b5d0-d07804541ed7",
+            "_op": 4
+        }
+    ],
+    "_guid": "22b7753c-ec19-45cb-a808-118ae109b37e",
+    "_name": "timeLogic"
+}

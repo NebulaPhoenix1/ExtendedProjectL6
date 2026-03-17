@@ -1,0 +1,286 @@
+Hard Enemies Save
+{
+    "roomsExplored": 11,
+    "recentRoomStatsList": [
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 2,
+                "rangedDamageTaken": 1,
+                "trapDamageTaken": 0,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 4,
+                "meleeEnemiesDefeated": 2,
+                "rangedEnemiesDefeated": 2,
+                "attacksUsed": 12,
+                "attacksHit": 11,
+                "damageDealt": 36
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 1,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 10.140795707702637
+            },
+            "roomContents": {
+                "startingEnemyCount": 4,
+                "trapCount": 4,
+                "lootCount": 0
+            }
+        },
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 4,
+                "rangedDamageTaken": 0,
+                "trapDamageTaken": 1,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 2,
+                "meleeEnemiesDefeated": 2,
+                "rangedEnemiesDefeated": 0,
+                "attacksUsed": 7,
+                "attacksHit": 6,
+                "damageDealt": 24
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 0,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 6.930586338043213
+            },
+            "roomContents": {
+                "startingEnemyCount": 2,
+                "trapCount": 2,
+                "lootCount": 0
+            }
+        },
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 4,
+                "rangedDamageTaken": 1,
+                "trapDamageTaken": 0,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 6,
+                "meleeEnemiesDefeated": 4,
+                "rangedEnemiesDefeated": 2,
+                "attacksUsed": 15,
+                "attacksHit": 14,
+                "damageDealt": 60
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 0,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 9.947100639343262
+            },
+            "roomContents": {
+                "startingEnemyCount": 6,
+                "trapCount": 3,
+                "lootCount": 0
+            }
+        },
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 4,
+                "rangedDamageTaken": 1,
+                "trapDamageTaken": 1,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 6,
+                "meleeEnemiesDefeated": 3,
+                "rangedEnemiesDefeated": 3,
+                "attacksUsed": 15,
+                "attacksHit": 12,
+                "damageDealt": 54
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 1,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 11.589174270629883
+            },
+            "roomContents": {
+                "startingEnemyCount": 6,
+                "trapCount": 3,
+                "lootCount": 0
+            }
+        },
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 0,
+                "rangedDamageTaken": 0,
+                "trapDamageTaken": 0,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 0,
+                "meleeEnemiesDefeated": 0,
+                "rangedEnemiesDefeated": 0,
+                "attacksUsed": 1,
+                "attacksHit": 1,
+                "damageDealt": 3
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 0,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 0.0
+            },
+            "roomContents": {
+                "startingEnemyCount": 0,
+                "trapCount": 4,
+                "lootCount": 0
+            }
+        },
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 6,
+                "rangedDamageTaken": 0,
+                "trapDamageTaken": 0,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 5,
+                "meleeEnemiesDefeated": 2,
+                "rangedEnemiesDefeated": 3,
+                "attacksUsed": 13,
+                "attacksHit": 9,
+                "damageDealt": 39
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 0,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 12.211034774780274
+            },
+            "roomContents": {
+                "startingEnemyCount": 5,
+                "trapCount": 2,
+                "lootCount": 0
+            }
+        },
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 0,
+                "rangedDamageTaken": 1,
+                "trapDamageTaken": 0,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 7,
+                "meleeEnemiesDefeated": 3,
+                "rangedEnemiesDefeated": 4,
+                "attacksUsed": 11,
+                "attacksHit": 10,
+                "damageDealt": 60
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 0,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 7.3770928382873539
+            },
+            "roomContents": {
+                "startingEnemyCount": 7,
+                "trapCount": 0,
+                "lootCount": 0
+            }
+        },
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 0,
+                "rangedDamageTaken": 1,
+                "trapDamageTaken": 0,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 7,
+                "meleeEnemiesDefeated": 0,
+                "rangedEnemiesDefeated": 7,
+                "attacksUsed": 13,
+                "attacksHit": 11,
+                "damageDealt": 42
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 0,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 10.321893692016602
+            },
+            "roomContents": {
+                "startingEnemyCount": 7,
+                "trapCount": 1,
+                "lootCount": 0
+            }
+        },
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 4,
+                "rangedDamageTaken": 1,
+                "trapDamageTaken": 0,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 6,
+                "meleeEnemiesDefeated": 3,
+                "rangedEnemiesDefeated": 3,
+                "attacksUsed": 13,
+                "attacksHit": 12,
+                "damageDealt": 54
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 0,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 10.860105514526368
+            },
+            "roomContents": {
+                "startingEnemyCount": 6,
+                "trapCount": 2,
+                "lootCount": 0
+            }
+        },
+        {
+            "playerStats": {
+                "healingDone": 0,
+                "meleeDamageTaken": 0,
+                "rangedDamageTaken": 1,
+                "trapDamageTaken": 0,
+                "deathCount": 0
+            },
+            "combatStats": {
+                "enemiesDefeated": 4,
+                "meleeEnemiesDefeated": 1,
+                "rangedEnemiesDefeated": 3,
+                "attacksUsed": 10,
+                "attacksHit": 10,
+                "damageDealt": 30
+            },
+            "explorationStats": {
+                "trapsPlayerActivated": 1,
+                "trapsEnemyActivated": 0,
+                "lootCollected": 0,
+                "timeSpent": 9.610003471374512
+            },
+            "roomContents": {
+                "startingEnemyCount": 4,
+                "trapCount": 3,
+                "lootCount": 0
+            }
+        }
+    ]
+}
