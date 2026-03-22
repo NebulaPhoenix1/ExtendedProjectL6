@@ -163,9 +163,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af7fff0c7d9c14047b69aa122dfcfb9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RankCalculator
-  averageHitsTaken: 20
-  averageTrapHitsTaken: 4
+  averageHitsTaken: 0
+  averageTrapHitsTaken: 0
   fuzzyLogicData: {fileID: 4900000, guid: d6eadc6238730324aafde0aaa3ff77c5, type: 3}
+  playerRank: 100
+  maxRankSwingPerRoom: 20
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

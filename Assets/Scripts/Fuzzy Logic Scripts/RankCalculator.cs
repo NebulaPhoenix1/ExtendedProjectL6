@@ -12,10 +12,13 @@ public class RankCalculator : MonoBehaviour
     [SerializeField] private float averageTrapHitsTaken;
     private FuzzyLogic fuzzyLogic = null;
     public TextAsset fuzzyLogicData = null;
-    float weight = 0.5f; //Start player as average
+
+
+    [SerializeField] private float playerRank = 50; //Between 0 - 100 (100 is perfect player, 0 is awful)
+    [SerializeField] private int maxRankSwingPerRoom = 20; //The maximum rank is allowed to change per room
 
     //Returns a rank between 0-1 (0 is the worst a player can be, 1 is the best)
-    public void CalculateRank()
+    public void CalculateRankDelta()
     {
         //Clear memory if not play mode, no idea why but this fixed the evaluations outside play mode lmao
 #if UNITY_EDITOR
@@ -39,11 +42,6 @@ public class RankCalculator : MonoBehaviour
 
         fuzzyLogic.evaluate = true;
 
-        float slightIncreaseWeight;
-        float massiveIncreaseWeight;
-        float slightDecreaseWeight;
-        float massiveDecreaseWeight;
-
         //Pass values in 
         var hitsInput = fuzzyLogic.GetFuzzificationByName("averageHitsTaken");
         if (hitsInput != null)
@@ -65,8 +63,14 @@ public class RankCalculator : MonoBehaviour
             Debug.LogError("Could not find Fuzzification parameter 'averageTrapDamageTaken'");
         }
 
-        float rawRank = fuzzyLogic.Output();
-        float rank = rawRank * 100; //multiply for 100 as its max value 
+        float rawRankDelta = fuzzyLogic.Output();
+
+        /*
+
+        float slightIncreaseWeight;
+        float massiveIncreaseWeight;
+        float slightDecreaseWeight;
+        float massiveDecreaseWeight;
 
         //Takes the tracked room data gets and calculates that sets membership value
         //averageHitsTaken
@@ -77,9 +81,19 @@ public class RankCalculator : MonoBehaviour
 
 
         //Debug log everything
-        Debug.Log("Slight Increase: " + slightIncreaseWeight + "\n Massive Increase: " + massiveIncreaseWeight + "\n Slight Decrease: " + slightDecreaseWeight + "\n Massive Decrease: " + massiveDecreaseWeight + "\n Rank: " + rank);
-        Debug.Log("Average Hits: " + averageHitsTaken + " , Average Trap Hits: " + averageTrapHitsTaken);
-        Debug.Log("Actual average hits: " + hitsInput.value + " , Actual average trap hits: " + trapsInput.value);
+        Debug.Log("Slight Increase: " + slightIncreaseWeight + " ,Massive Increase: " + massiveIncreaseWeight + "\n Slight Decrease: " + slightDecreaseWeight + " ,Massive Decrease: " + massiveDecreaseWeight);
+
+        //Debug.Log("Average Hits: " + averageHitsTaken + " , Average Trap Hits: " + averageTrapHitsTaken);
+        //Debug.Log("Actual average hits: " + hitsInput.value + " , Actual average trap hits: " + trapsInput.value);
+
+        */
+
+        //This line of code takes the rankDelta from being between 0 and 1 to between -1 and 1
+        //Where -1 = massive decrease of rank, 1 = massive increase, and 0 = stay the same
+        float rankDelta = (rawRankDelta - 0.5f) * 2f * maxRankSwingPerRoom;
+        playerRank = Mathf.Clamp(playerRank + rankDelta, 0f, 100f);
+        Debug.Log($"Fuzzy Output: {rawRankDelta}. Rank Change: {rankDelta}. New Player Rank: {playerRank}");
+
         return;
     }
 
@@ -120,7 +134,7 @@ public class RankCalculatorEditor : Editor
         if (GUILayout.Button("Evaluate Time & Debug"))
         {
             // Call the method using the variable set in the inspector
-            script.CalculateRank();
+            script.CalculateRankDelta();
         }
     }
 }
