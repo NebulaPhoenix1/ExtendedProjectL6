@@ -5,7 +5,7 @@
             "_maxValue": 20,
             "_guid": "24cfd95c-7cc8-4325-92be-d6f6b60d86e7",
             "_name": "averageHitsTaken",
-            "_value": 13.739999771118164,
+            "_value": 4.610000133514404,
             "trapezoids": [
                 {
                     "_guid": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
@@ -56,7 +56,7 @@
             "_maxValue": 5,
             "_guid": "a355ecb7-8738-4658-ad76-58ca48b25b7b",
             "_name": "averageTrapDamageTaken",
-            "_value": 4.840000152587891,
+            "_value": 2.7699999809265138,
             "trapezoids": [
                 {
                     "_guid": "89ef80ac-a430-408b-b6ee-af96e4b834d9",
@@ -196,7 +196,7 @@
         },
         {
             "_guid": "086135a7-e283-49b2-8af1-1168acf7dc08",
-            "_name": "",
+            "_name": "Slight Decrease",
             "_leftSideInputGUID": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
             "_rightSideInputGUID": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
             "_outputGUID": "705e2532-be2f-4721-bee2-d2e5da124877",
