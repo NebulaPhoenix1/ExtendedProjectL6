@@ -15,7 +15,7 @@ public class PointOfInterestData : ScriptableObject
 
     [Header("Budget Spawning System")]
     [Tooltip("These are auto calculated, do NOT change")]
-    public int threatScore;
+    public int threatCost;
 
     //Auto calculating values
     public int numberOfEnemies
@@ -59,6 +59,6 @@ public class PointOfInterestData : ScriptableObject
     //Update cost in real time
     private void OnValidate()
     {
-        threatScore = AutoCalculatedCost;
+        threatCost = AutoCalculatedCost;
     }
 }

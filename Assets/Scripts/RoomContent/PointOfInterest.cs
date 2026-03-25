@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PointOfInterest : MonoBehaviour
 {
-    [SerializeField] PointOfInterestData pointOfInterestData;
+    [SerializeField] public PointOfInterestData pointOfInterestData;
 
     private void Start()
     {

@@ -163,14 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af7fff0c7d9c14047b69aa122dfcfb9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RankCalculator
-  averageHitsTaken: 9
-  averageTrapHitsTaken: 1
-  averageTimePerEnemyKilled: 0.9
-  accuracy: 96
   showRankInUI: 1
   rankDisplayText: {fileID: 1362797866}
   fuzzyLogicData: {fileID: 4900000, guid: d6eadc6238730324aafde0aaa3ff77c5, type: 3}
-  playerRank: 92.5104
+  newPlayerRank: 0
   maxRankSwingPerRoom: 20
 --- !u!1 &330585543
 GameObject:
@@ -534,6 +530,61 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4914895111835037488, guid: 8171278a600551d40b7c5a1449e5d91e, type: 3}
   m_PrefabInstance: {fileID: 7735110075483149213}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &515568827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 515568829}
+  - component: {fileID: 515568828}
+  m_Layer: 0
+  m_Name: POI Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &515568828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515568827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cfde48d500f1534780ed603dd208477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  allPOIPrefabs:
+  - {fileID: 7661564874736227630, guid: afdb3ca7b5968e64aacfae6da207dfb9, type: 3}
+  - {fileID: 7661564874736227630, guid: 1d31610eced81dc4498a2121129d0de5, type: 3}
+  - {fileID: 7661564874736227630, guid: 64df3a3012c12d34b945736891350230, type: 3}
+  - {fileID: 7661564874736227630, guid: 5be55e422648dc048bff46d2db16cfe8, type: 3}
+  - {fileID: 7661564874736227630, guid: 454ba076a2b6f0241a8bc210f4790948, type: 3}
+  - {fileID: 7661564874736227630, guid: 86052f56fa6c4fa4d8a85ee45af86e14, type: 3}
+  - {fileID: 7661564874736227630, guid: 26594b3596ca5f14695b5c8589e84180, type: 3}
+  minRoomBudget: 10
+  maxRoomBudget: 60
+  costTolerance: 3
+--- !u!4 &515568829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515568827}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.95936, y: 0, z: 5.85652}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &538265690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,3 +1607,4 @@ SceneRoots:
   - {fileID: 1235199907}
   - {fileID: 538265693}
   - {fileID: 216064630}
+  - {fileID: 515568829}

@@ -1,5 +1,7 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class RoomController : MonoBehaviour
 {
@@ -69,18 +71,21 @@ public class RoomController : MonoBehaviour
                 {
                     playerAttack.currentRoomStats = nextRoom.GetComponent<RoomStats>();
                     Debug.Log("Player stats current room updated!");
-                    //Spawn POIs in the next room
-                    foreach (var poiSpawner in nextRoom.pointsOfInterest)
+                    if (nextRoom.pointsOfInterest.Length > 0 && PointOfInterestSpawnController.Instance != null)
                     {
-                        poiSpawner.SpawnPOI();
+                        float currentRank = StatTracker.Instance != null ? StatTracker.Instance.GetRank() : 50f; //Default to 50 if rank cant be got
+                        List<GameObject> prefabsForNextRoom = PointOfInterestSpawnController.Instance.SelectPOIsForRoom(currentRank, nextRoom.pointsOfInterest.Length);
+                        for (int i = 0; i < prefabsForNextRoom.Count; i++)
+                        {
+                            nextRoom.pointsOfInterest[i].SpawnPOI(prefabsForNextRoom[i]);
+                        }
                     }
-                    if(outOfBounds != null)
+                    else if (PointOfInterestSpawnController.Instance == null)
                     {
-                        outOfBounds.UpdateCurrentRoom();
+                        Debug.LogWarning("Could not spawn POIs, POI Spawn Controller is missing");
                     }
                 }
             }
-
         });
         roomGenerator = FindFirstObjectByType<RoomGenerator>();
         if (roomGenerator != null)
@@ -91,9 +96,18 @@ public class RoomController : MonoBehaviour
         //Spawn POIs for starting room
         if(isStartingRoom)
         {
-            foreach (var poiSpawner in pointsOfInterest)
+            if(pointsOfInterest.Length > 0 && PointOfInterestSpawnController.Instance != null)
             {
-                poiSpawner.SpawnPOI();
+                float currentRank = StatTracker.Instance != null ? StatTracker.Instance.GetRank() : 50f; //Default to 50 if rank cant be got
+                List<GameObject> startingPrefabs = PointOfInterestSpawnController.Instance.SelectPOIsForRoom(currentRank, pointsOfInterest.Length);
+                for (int i = 0; i < pointsOfInterest.Length; i++)
+                {
+                    pointsOfInterest[i].SpawnPOI(startingPrefabs[i]);
+                }
+            }
+            else if(PointOfInterestSpawnController.Instance == null)
+            {
+                Debug.LogWarning("POI Spawn Controller is null! Cannot spawn starting rooms");
             }
         }
     }

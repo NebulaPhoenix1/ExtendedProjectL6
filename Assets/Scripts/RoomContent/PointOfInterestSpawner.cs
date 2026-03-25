@@ -22,24 +22,13 @@ public class PointOfInterestSpawner : MonoBehaviour
     //}
 
     //Add this as a listener when the parent room controller invokes room unlocked
-    public void SpawnPOI()
+    //This function spawns a provided POI from POI Spawn Controller
+    public void SpawnPOI(GameObject prefabToSpawn)
     {
-        if (!poiSelected)
-        {
-            //Return if no POI prefabs assigned
-            if (pointsOfInterestPrefabs.Length == 0)
-            {
-                Debug.LogWarning("No Points of Interest Prefabs assigned to PointOfInterestSpawner on " + gameObject.name);
-                return;
-            }
-            //Select Random POI
-            int randomIndex = Random.Range(0, pointsOfInterestPrefabs.Length);
-            Instantiate(pointsOfInterestPrefabs[randomIndex], transform.position, Quaternion.identity, transform);
-            poiSelected = true;
-        }
-        else
-        {
-            Debug.LogWarning("Point of Interest already selected for " + gameObject.name);
-        }
+        //Early returns if we have already spawned prefabs or if the provided prefab is null
+        if (poiSelected) return;
+        if (prefabToSpawn == null) return;
+        Instantiate(prefabToSpawn, transform.position, transform.rotation, transform);
+        
     }
 }
