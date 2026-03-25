@@ -1,5 +1,6 @@
 using UnityEngine;
 using FuzzyLogicSystem;
+using TMPro;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,17 +9,24 @@ using UnityEditor;
 public class RankCalculator : MonoBehaviour
 {
     //Debug Testing Controls
-    [SerializeField] private float averageHitsTaken;
-    [SerializeField] private float averageTrapHitsTaken;
+    //[SerializeField] private float averageHitsTaken; //How much dmg on average was taken in each room
+    //[SerializeField] private float averageTrapHitsTaken; //How much trap dmg was taken in each room
+    //[SerializeField] private float averageTimePerEnemyKilled; //Enemies per room/total time for room
+    //[SerializeField] private float accuracy; //hits landed/hits taken as a percentage 
+
+    [SerializeField] private bool showRankInUI;
+    [SerializeField] private TMP_Text rankDisplayText;
+
     private FuzzyLogic fuzzyLogic = null;
     public TextAsset fuzzyLogicData = null;
 
 
-    [SerializeField] private float playerRank = 50; //Between 0 - 100 (100 is perfect player, 0 is awful)
+    [SerializeField] private float newPlayerRank; //Between 0 - 100 (100 is perfect player, 0 is awful)
     [SerializeField] private int maxRankSwingPerRoom = 20; //The maximum rank is allowed to change per room
+    
 
     //Returns a rank between 0-1 (0 is the worst a player can be, 1 is the best)
-    public void CalculateRankDelta()
+    public void CalculateRankDelta(float averageHitsTaken, float averageTrapHitsTaken, float averageTimePerEnemy, float accuracy)
     {
         //Clear memory if not play mode, no idea why but this fixed the evaluations outside play mode lmao
 #if UNITY_EDITOR
@@ -27,7 +35,6 @@ public class RankCalculator : MonoBehaviour
             fuzzyLogic = null;
         }
 #endif
-
 
         if (fuzzyLogic == null)
         { 
@@ -63,6 +70,26 @@ public class RankCalculator : MonoBehaviour
             Debug.LogError("Could not find Fuzzification parameter 'averageTrapDamageTaken'");
         }
 
+        var timePerEnemyInput = fuzzyLogic.GetFuzzificationByName("averageTimePerEnemyKilled");
+        if (timePerEnemyInput != null)
+        {
+            timePerEnemyInput.value = averageTimePerEnemy;
+        }
+        else
+        {
+            Debug.LogError("COuld not find Fuzzification parameter 'averageTimePerEnemyKilled'");
+        }
+
+        var accuracyInput = fuzzyLogic.GetFuzzificationByName("accuracy");
+        if (accuracyInput != null)
+        {
+            accuracyInput.value = accuracy;
+        }
+        else
+        {
+            Debug.LogError("COuld not find Fuzzification parameter 'accuracy'");
+        }
+
         float rawRankDelta = fuzzyLogic.Output();
 
         /*
@@ -90,10 +117,19 @@ public class RankCalculator : MonoBehaviour
 
         //This line of code takes the rankDelta from being between 0 and 1 to between -1 and 1
         //Where -1 = massive decrease of rank, 1 = massive increase, and 0 = stay the same
-        float rankDelta = (rawRankDelta - 0.5f) * 2f * maxRankSwingPerRoom;
-        playerRank = Mathf.Clamp(playerRank + rankDelta, 0f, 100f);
-        Debug.Log($"Fuzzy Output: {rawRankDelta}. Rank Change: {rankDelta}. New Player Rank: {playerRank}");
 
+        float currentPlayerRank = StatTracker.Instance.GetRank();
+
+        float rankDelta = (rawRankDelta - 0.5f) * 2f * maxRankSwingPerRoom;
+        newPlayerRank = Mathf.Clamp(currentPlayerRank + rankDelta, 0f, 100f);
+        Debug.Log($"Fuzzy Output: {rawRankDelta}. Rank Change: {rankDelta}. New Player Rank: {newPlayerRank}");
+        Debug.Log($"Avg Hits Taken: {averageHitsTaken} , AvgTrapHitsTaken {averageTrapHitsTaken} , AvgTimePerEnemy {averageTimePerEnemy} , Accuracy {accuracy}");
+
+        if(showRankInUI && rankDisplayText != null )
+        {
+            rankDisplayText.text = "Rank :" + newPlayerRank.ToString();
+        }
+        StatTracker.Instance.SetRank( newPlayerRank );
         return;
     }
 
@@ -106,6 +142,18 @@ public class RankCalculator : MonoBehaviour
         {
             fuzzyLogic = FuzzyLogic.Deserialize(fuzzyLogicData.bytes, null);
         }
+        //Get Player Rank saved to JSON
+        StatTracker statTracker = StatTracker.Instance;
+        if (statTracker != null)
+        {
+            newPlayerRank = statTracker.GetRank();
+        }
+        else
+        {
+            Debug.LogWarning("Could not get player rank from StatTracker, using default value of 50");
+        }
+        if(showRankInUI && rankDisplayText != null) { rankDisplayText.text = "Rank: " + newPlayerRank.ToString(); }
+        
     }
 
     // Update is called once per frame
@@ -134,7 +182,7 @@ public class RankCalculatorEditor : Editor
         if (GUILayout.Button("Evaluate Time & Debug"))
         {
             // Call the method using the variable set in the inspector
-            script.CalculateRankDelta();
+            //script.CalculateRankDelta( averageHitsTaken, averageTrapHitsTaken, averageTimePerEnemy, acuracy);
         }
     }
 }

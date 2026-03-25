@@ -30,6 +30,12 @@ public class PlayerStats
     {
         deathCount++;
     }
+
+    public int GetHealingDone() { return healingDone; }
+    public int GetMeleeDamageTaken() { return meleeDamageTaken; }
+    public int GetRangedDamageTaken() { return rangedDamageTaken; }
+    public int GetTrapDamageTaken() { return trapDamageTaken; }
+    public int GetDeathCount() { return deathCount; }  
 }
 
 [System.Serializable]
@@ -68,6 +74,13 @@ public class CombatStats
     {
         damageDealt += (int)amount;
     }
+    
+    public int GetTotalEnemiesDefeated() { return enemiesDefeated; }
+    public int GetMeleeEnemiesDefeated() { return meleeEnemiesDefeated; }
+    public int GetRangedEnemiesDefeated() { return rangedEnemiesDefeated; }
+    public int GetAttacksUsed() { return attacksUsed; }
+    public int GetAttacksHit() { return attacksHit; }
+    public int GetDamageDealt() { return damageDealt; }
 }
 
 [System.Serializable]
@@ -95,6 +108,11 @@ public class ExplorationStats
     {
         timeSpent += amount;
     }
+
+    public int GetTrapsPlayerActivated() { return trapsPlayerActivated; }
+    public int GetTrapsEnemyActivated() { return trapsEnemyActivated; }
+    public int GetLootCollected() { return lootCollected; }
+    public float GetTimeSpent() { return timeSpent; }
 }
 
 [System.Serializable]
@@ -107,6 +125,9 @@ public class RoomContents
     public void SetEnemyCount(int count) { startingEnemyCount = count; }
     public void SetTrapCount(int count) { trapCount = count; }
     public void SetLootCount(int count) {  lootCount = count; }
+    public int GetStartEnemyCount() { return startingEnemyCount; }
+    public int GetTrapCount() { return trapCount; }
+    public int GetLootCount() { return lootCount; }
 
 }
 

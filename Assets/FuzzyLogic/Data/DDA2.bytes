@@ -5,7 +5,7 @@
             "_maxValue": 20,
             "_guid": "24cfd95c-7cc8-4325-92be-d6f6b60d86e7",
             "_name": "averageHitsTaken",
-            "_value": 15.390000343322754,
+            "_value": 13.390000343322754,
             "trapezoids": [
                 {
                     "_guid": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
@@ -56,7 +56,7 @@
             "_maxValue": 5,
             "_guid": "a355ecb7-8738-4658-ad76-58ca48b25b7b",
             "_name": "averageTrapDamageTaken",
-            "_value": 5.0,
+            "_value": 4.630000114440918,
             "trapezoids": [
                 {
                     "_guid": "89ef80ac-a430-408b-b6ee-af96e4b834d9",
@@ -101,6 +101,108 @@
                     "_footPointRightValue": 5.0
                 }
             ]
+        },
+        {
+            "_division": 5,
+            "_maxValue": 5,
+            "_guid": "ffffd20b-7338-4ed3-9802-e557416773d9",
+            "_name": "averageTimePerEnemyKilled",
+            "_value": 4.760000228881836,
+            "trapezoids": [
+                {
+                    "_guid": "f9185245-7225-4ced-90f2-ae6b0ba02107",
+                    "_color": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "_name": "fast",
+                    "_peakPointLeftValue": 0.0,
+                    "_footPointLeftValue": 0.0,
+                    "_peakPointRightValue": 0.0,
+                    "_footPointRightValue": 2.0099010467529299
+                },
+                {
+                    "_guid": "8a887159-b46f-4ed5-97fc-87b33301508a",
+                    "_color": {
+                        "r": 0.5031337141990662,
+                        "g": 0.177978053689003,
+                        "b": 0.579815685749054,
+                        "a": 1.0
+                    },
+                    "_name": "normal",
+                    "_peakPointLeftValue": 2.0099010467529299,
+                    "_footPointLeftValue": 0.0,
+                    "_peakPointRightValue": 2.059406042098999,
+                    "_footPointRightValue": 3.0198020935058595
+                },
+                {
+                    "_guid": "2fa65977-03f7-46cd-9428-ab7912492032",
+                    "_color": {
+                        "r": 0.0,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "_name": "slow",
+                    "_peakPointLeftValue": 3.0198020935058595,
+                    "_footPointLeftValue": 2.059406042098999,
+                    "_peakPointRightValue": 5.0,
+                    "_footPointRightValue": 5.0
+                }
+            ]
+        },
+        {
+            "_division": 10,
+            "_maxValue": 100,
+            "_guid": "35adaf9b-cd3e-4286-85d8-f7c470dbb4db",
+            "_name": "accuracy",
+            "_value": 79.5999984741211,
+            "trapezoids": [
+                {
+                    "_guid": "b865222e-f5d3-476a-90d3-3f168f2dbb3c",
+                    "_color": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "_name": "low",
+                    "_peakPointLeftValue": 0.0,
+                    "_footPointLeftValue": 0.0,
+                    "_peakPointRightValue": 70.79207611083985,
+                    "_footPointRightValue": 81.68316650390625
+                },
+                {
+                    "_guid": "6b5c827a-60ab-4098-b795-4fc5c27f095e",
+                    "_color": {
+                        "r": 0.10721756517887116,
+                        "g": 0.23676124215126038,
+                        "b": 0.9590845108032227,
+                        "a": 1.0
+                    },
+                    "_name": "average",
+                    "_peakPointLeftValue": 81.68316650390625,
+                    "_footPointLeftValue": 70.79207611083985,
+                    "_peakPointRightValue": 95.0,
+                    "_footPointRightValue": 100.0
+                },
+                {
+                    "_guid": "12de11e5-714c-4e05-afe2-cb73e0d218df",
+                    "_color": {
+                        "r": 0.0,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "_name": "high",
+                    "_peakPointLeftValue": 100.0,
+                    "_footPointLeftValue": 95.0,
+                    "_peakPointRightValue": 100.0,
+                    "_footPointRightValue": 100.0
+                }
+            ]
         }
     ],
     "_defuzzitication": {
@@ -127,9 +229,9 @@
             {
                 "_guid": "705e2532-be2f-4721-bee2-d2e5da124877",
                 "_color": {
-                    "r": 0.7896435260772705,
-                    "g": 0.6522111296653748,
-                    "b": 0.03842950239777565,
+                    "r": 1.0,
+                    "g": 0.9215686321258545,
+                    "b": 0.01568627543747425,
                     "a": 1.0
                 },
                 "_name": "Slight Decrease Rating",
@@ -141,9 +243,9 @@
             {
                 "_guid": "1680aa3e-a9dd-41fd-937c-ef23f00e76a3",
                 "_color": {
-                    "r": 0.30084744095802309,
-                    "g": 0.19695761799812318,
-                    "b": 0.6849631667137146,
+                    "r": 0.0,
+                    "g": 1.0,
+                    "b": 1.0,
                     "a": 1.0
                 },
                 "_name": "Slight Increase Rating",
@@ -151,6 +253,62 @@
                 "_footPointLeftValue": 40.0,
                 "_peakPointRightValue": 70.0,
                 "_footPointRightValue": 80.0
+            },
+            {
+                "_guid": "9bd93827-be76-4670-8a17-39559c22d112",
+                "_color": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 1.0
+                },
+                "_name": "2 Massive Decrease 2",
+                "_peakPointLeftValue": 0.0,
+                "_footPointLeftValue": -25.0,
+                "_peakPointRightValue": 10.0,
+                "_footPointRightValue": 20.0
+            },
+            {
+                "_guid": "cf04cff1-388a-4ee3-bdaf-7fb4c7ac358e",
+                "_color": {
+                    "r": 1.0,
+                    "g": 0.9215686321258545,
+                    "b": 0.01568627543747425,
+                    "a": 1.0
+                },
+                "_name": "2 Slight Decrease",
+                "_peakPointLeftValue": 20.0,
+                "_footPointLeftValue": 10.0,
+                "_peakPointRightValue": 40.0,
+                "_footPointRightValue": 50.0
+            },
+            {
+                "_guid": "d1af57bd-d13c-4853-9c0f-1f27d320633a",
+                "_color": {
+                    "r": 0.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "_name": "2 Slight Increase",
+                "_peakPointLeftValue": 50.0,
+                "_footPointLeftValue": 40.0,
+                "_peakPointRightValue": 70.0,
+                "_footPointRightValue": 80.0
+            },
+            {
+                "_guid": "e6dfc9d3-161b-4605-8659-df4a31335c1a",
+                "_color": {
+                    "r": 0.023198725655674936,
+                    "g": 0.9528495073318481,
+                    "b": 0.07541144639253617,
+                    "a": 1.0
+                },
+                "_name": "2 Massive Increase",
+                "_peakPointLeftValue": 80.0,
+                "_footPointLeftValue": 70.0,
+                "_peakPointRightValue": 100.0,
+                "_footPointRightValue": 150.0
             },
             {
                 "_guid": "04ae3bcd-f810-401b-8df0-daa03ef237f8",
@@ -197,10 +355,26 @@
         {
             "_guid": "086135a7-e283-49b2-8af1-1168acf7dc08",
             "_name": "Slight Decrease",
-            "_leftSideInputGUID": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
-            "_rightSideInputGUID": "91c8a3e7-b0cb-48b9-a51a-16938cf7ddac",
+            "_leftSideInputGUID": "b865222e-f5d3-476a-90d3-3f168f2dbb3c",
+            "_rightSideInputGUID": "2fa65977-03f7-46cd-9428-ab7912492032",
             "_outputGUID": "705e2532-be2f-4721-bee2-d2e5da124877",
-            "_op": 4
+            "_op": 2
+        },
+        {
+            "_guid": "ee10da3f-16dc-4016-a6b5-7ae712e95f8a",
+            "_name": "2 Slight Increase",
+            "_leftSideInputGUID": "6b5c827a-60ab-4098-b795-4fc5c27f095e",
+            "_rightSideInputGUID": "8a887159-b46f-4ed5-97fc-87b33301508a",
+            "_outputGUID": "d1af57bd-d13c-4853-9c0f-1f27d320633a",
+            "_op": 2
+        },
+        {
+            "_guid": "d7068523-ee56-40db-bf1f-4b3081d643af",
+            "_name": "2 Massive Increase",
+            "_leftSideInputGUID": "12de11e5-714c-4e05-afe2-cb73e0d218df",
+            "_rightSideInputGUID": "f9185245-7225-4ced-90f2-ae6b0ba02107",
+            "_outputGUID": "e6dfc9d3-161b-4605-8659-df4a31335c1a",
+            "_op": 2
         }
     ],
     "_guid": "e46a5da3-041d-4e6a-b1ed-97b6afa32bac",
