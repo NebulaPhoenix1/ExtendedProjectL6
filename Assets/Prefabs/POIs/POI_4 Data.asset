@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c5fceb007e9b8459be8ddb4970ca25, type: 3}
   m_Name: POI_4 Data
   m_EditorClassIdentifier: Assembly-CSharp::PointOfInterestData
-  numberOfEnemies: 2
-  isTrapPOI: 0
+  easyEnemies: 2
+  normalEnemies: 0
+  hardEnemies: 0
+  traps: 0
   isLootPOI: 0
+  threatScore: 4
