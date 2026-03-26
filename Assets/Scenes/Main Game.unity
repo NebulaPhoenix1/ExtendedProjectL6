@@ -571,6 +571,8 @@ MonoBehaviour:
   - {fileID: 7661564874736227630, guid: 71088fe42a2dbfd43a97301c971eb8ca, type: 3}
   - {fileID: 7661564874736227630, guid: e067737d923d17546a3feb0ae42009ae, type: 3}
   - {fileID: 7661564874736227630, guid: bf3c3d16703cb5c40b6dc424fbc7e590, type: 3}
+  - {fileID: 7661564874736227630, guid: db7cccb2fa3ac1c4ab96a15e82d0a757, type: 3}
+  - {fileID: 7661564874736227630, guid: 131722598dcdda34dbe402e2c4de4dba, type: 3}
   minRoomBudget: 10
   maxRoomBudget: 60
   costTolerance: 3

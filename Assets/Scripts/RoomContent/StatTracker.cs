@@ -104,6 +104,7 @@ public class StatTracker : MonoBehaviour
         else
         {
             Debug.Log("No save file found at " + pathToSaveFile + ", starting new save data using default class values.");
+            this.playerRank = 50f; //Default rank to 50 if no save file
         }
     }
     private void SaveJSON()
