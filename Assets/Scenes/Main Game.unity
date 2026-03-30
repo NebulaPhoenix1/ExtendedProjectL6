@@ -167,7 +167,7 @@ MonoBehaviour:
   rankDisplayText: {fileID: 1362797866}
   fuzzyLogicData: {fileID: 4900000, guid: d6eadc6238730324aafde0aaa3ff77c5, type: 3}
   newPlayerRank: 0
-  maxRankSwingPerRoom: 20
+  maxRankSwingPerRoom: 40
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
